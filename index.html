@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Ministry of the Future — Australia</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,700;9..144,900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1a1814;
+  --paper: #f3ede0;
+  --paper-deep: #e8dfc9;
+  --rust: #b8451f;
+  --ochre: #c98a2b;
+  --sage: #5c6b4a;
+  --slate: #2c3e4a;
+  --line: #1a1814;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Fraunces', Georgia, serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.5;
+  font-feature-settings: "ss01", "ss02";
+  overflow-x: hidden;
+}
+.mono { font-family: 'JetBrains Mono', monospace; font-weight: 500; letter-spacing: -0.01em; }
+.grain {
+  position: fixed; inset: 0; pointer-events: none; z-index: 100; opacity: 0.08;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ============ MASTHEAD ============ */
+.masthead {
+  border-bottom: 2px solid var(--line);
+  padding: 14px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: var(--paper);
+  position: sticky; top: 0; z-index: 50;
+}
+.masthead nav { display: flex; gap: 24px; }
+.masthead a { color: var(--ink); text-decoration: none; border-bottom: 1px solid transparent; padding-bottom: 2px; }
+.masthead a:hover { border-bottom-color: var(--rust); }
+
+/* ============ HERO ============ */
+.hero {
+  padding: 80px 32px 60px;
+  border-bottom: 2px solid var(--line);
+  position: relative;
+  overflow: hidden;
+}
+.hero-grid {
+  max-width: 1400px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 60px;
+  align-items: end;
+}
+.hero h1 {
+  font-size: clamp(56px, 9vw, 140px);
+  line-height: 0.88;
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  margin-bottom: 32px;
+}
+.hero h1 em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--rust);
+}
+.hero-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+  display: flex; gap: 32px; flex-wrap: wrap;
+}
+.hero-pitch {
+  font-size: 18px;
+  line-height: 1.55;
+  border-left: 2px solid var(--line);
+  padding: 8px 0 8px 24px;
+  max-width: 420px;
+}
+.hero-pitch strong { font-weight: 700; color: var(--rust); }
+
+/* Hero illustration */
+.hero-illo {
+  position: absolute;
+  right: -40px; top: 60px;
+  width: 320px; height: 320px;
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+/* ============ NEXT GATHERING ============ */
+.gathering {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 48px 32px;
+  border-bottom: 2px solid var(--line);
+}
+.gathering-inner {
+  max-width: 1400px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 48px;
+  align-items: center;
+}
+.gathering-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  border-left: 1px solid var(--paper);
+  padding-left: 12px;
+}
+.gathering-detail h2 {
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.gathering-detail h2 em {
+  font-style: italic;
+  color: var(--ochre);
+}
+.gathering-meta {
+  display: flex;
+  gap: 32px;
+  margin-top: 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.gathering-meta div { border-top: 1px solid var(--paper); padding-top: 8px; min-width: 120px; }
+.gathering-meta strong { display: block; font-size: 18px; font-family: 'Fraunces', serif; font-weight: 400; text-transform: none; letter-spacing: 0; margin-top: 4px; }
+.gathering-todo { color: var(--ochre); font-style: italic; }
+.gathering-svg { width: 200px; height: 200px; opacity: 0.9; }
+
+/* ============ SECTIONS ============ */
+section { padding: 80px 32px; border-bottom: 2px solid var(--line); }
+.section-inner { max-width: 1400px; margin: 0 auto; }
+.section-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  display: inline-block;
+  padding: 4px 12px;
+  border: 1px solid var(--line);
+  margin-bottom: 24px;
+}
+h2.section-title {
+  font-size: clamp(40px, 6vw, 80px);
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+  margin-bottom: 32px;
+  max-width: 900px;
+}
+h2.section-title em { font-style: italic; color: var(--rust); }
+.lede {
+  font-size: 22px;
+  line-height: 1.5;
+  max-width: 720px;
+  margin-bottom: 48px;
+  font-weight: 300;
+}
+
+/* ============ TAIWAN SECTION ============ */
+.taiwan-intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  margin-bottom: 80px;
+  align-items: start;
+}
+.taiwan-intro-text p {
+  font-size: 17px;
+  line-height: 1.65;
+  margin-bottom: 18px;
+  max-width: 540px;
+}
+.taiwan-intro-text p strong { font-weight: 700; }
+
+/* The big bridging-score diagram */
+.bridging-diagram {
+  background: var(--paper-deep);
+  border: 2px solid var(--line);
+  padding: 32px;
+  position: relative;
+}
+.bridging-diagram h3 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+}
+.bridging-diagram h3 span:last-child { color: var(--rust); }
+.bridging-svg { width: 100%; height: auto; display: block; }
+.diagram-caption {
+  font-size: 13px;
+  font-style: italic;
+  margin-top: 16px;
+  line-height: 1.5;
+  color: var(--ink);
+  opacity: 0.75;
+}
+
+/* Process flow */
+.process-flow {
+  margin: 80px 0;
+  background: var(--paper);
+  border: 2px solid var(--line);
+  padding: 48px 32px;
+}
+.process-flow h3 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 32px;
+  text-align: center;
+}
+.process-svg { width: 100%; height: auto; max-width: 1200px; margin: 0 auto; display: block; }
+
+/* Case study cards */
+.case-studies { margin-top: 80px; }
+.case-study {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 60px;
+  padding: 60px 0;
+  border-top: 1px solid var(--line);
+  align-items: start;
+}
+.case-study:last-of-type { border-bottom: 1px solid var(--line); }
+.case-number {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 12px;
+  color: var(--rust);
+}
+.case-study h3 {
+  font-size: 36px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin-bottom: 20px;
+}
+.case-study h3 em { font-style: italic; }
+.case-stats {
+  display: flex;
+  gap: 24px;
+  margin: 24px 0;
+  flex-wrap: wrap;
+}
+.case-stat {
+  border-top: 1px solid var(--line);
+  padding-top: 8px;
+  min-width: 100px;
+}
+.case-stat .num {
+  font-family: 'Fraunces', serif;
+  font-size: 32px;
+  font-weight: 300;
+  display: block;
+  line-height: 1;
+}
+.case-stat .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 4px;
+  display: block;
+}
+.case-text p {
+  font-size: 16px;
+  line-height: 1.65;
+  margin-bottom: 16px;
+}
+.case-text p:first-child::first-letter {
+  font-size: 56px;
+  float: left;
+  line-height: 0.85;
+  padding: 6px 8px 0 0;
+  font-weight: 400;
+  color: var(--rust);
+}
+.case-illustration {
+  background: var(--paper-deep);
+  border: 1px solid var(--line);
+  padding: 24px;
+}
+.case-illustration svg { width: 100%; height: auto; display: block; }
+.case-illo-cap {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 12px;
+  text-align: center;
+}
+
+/* Pull quote */
+.pullquote {
+  font-size: 28px;
+  line-height: 1.3;
+  font-style: italic;
+  font-weight: 300;
+  max-width: 720px;
+  margin: 60px auto;
+  padding: 32px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  text-align: center;
+  position: relative;
+}
+.pullquote::before {
+  content: "“"; position: absolute; left: 50%; top: -32px; transform: translateX(-50%);
+  font-size: 80px; background: var(--paper); padding: 0 16px; line-height: 1;
+  color: var(--rust); font-style: normal;
+}
+
+/* ============ VENUE SUGGESTION ============ */
+.venues {
+  background: var(--paper-deep);
+}
+.venues-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 60px;
+  margin-top: 40px;
+}
+.venue-list { display: flex; flex-direction: column; gap: 0; }
+.venue-item {
+  border: 1px solid var(--line);
+  border-bottom: none;
+  padding: 18px 24px;
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  gap: 20px;
+  align-items: center;
+  background: var(--paper);
+  transition: background 0.15s;
+}
+.venue-item:last-child { border-bottom: 1px solid var(--line); }
+.venue-item.confirmed { background: var(--ink); color: var(--paper); }
+.venue-item.confirmed .venue-meta { color: var(--paper); opacity: 0.7; }
+.venue-rank {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  opacity: 0.5;
+  width: 24px;
+}
+.venue-name {
+  font-size: 18px;
+  font-weight: 400;
+}
+.venue-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.6;
+  display: block;
+  margin-top: 2px;
+}
+.vote-count {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  min-width: 32px;
+  text-align: right;
+}
+.vote-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: transparent;
+  border: 1px solid var(--line);
+  padding: 6px 12px;
+  cursor: pointer;
+  color: var(--ink);
+  transition: all 0.15s;
+}
+.vote-btn:hover { background: var(--rust); border-color: var(--rust); color: var(--paper); }
+.vote-btn.voted { background: var(--sage); border-color: var(--sage); color: var(--paper); }
+.venue-item.confirmed .vote-btn { border-color: var(--paper); color: var(--paper); }
+.venue-form {
+  background: var(--paper);
+  border: 2px solid var(--line);
+  padding: 32px;
+  height: fit-content;
+}
+.venue-form h3 {
+  font-size: 24px;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+.venue-form p {
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 24px;
+  opacity: 0.7;
+}
+.venue-form input, .venue-form textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  font-family: 'Fraunces', serif;
+  font-size: 16px;
+  margin-bottom: 12px;
+  color: var(--ink);
+}
+.venue-form input:focus, .venue-form textarea:focus { outline: 2px solid var(--rust); outline-offset: -2px; }
+.venue-form textarea { resize: vertical; min-height: 60px; }
+.venue-form button {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  padding: 14px 24px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 8px;
+}
+.venue-form button:hover { background: var(--rust); }
+.venue-note {
+  font-size: 13px;
+  font-style: italic;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  opacity: 0.7;
+  line-height: 1.55;
+}
+
+/* ============ ROADMAP ============ */
+.roadmap-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 32px;
+  margin-top: 40px;
+  margin-bottom: 60px;
+}
+.roadmap-column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.roadmap-heading {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+.roadmap-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.roadmap-item {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: 12px;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  padding: 16px;
+  align-items: start;
+}
+.roadmap-item.done { background: var(--paper); }
+.roadmap-item.done.current { background: var(--ink); color: var(--paper); }
+.roadmap-item.done.current .roadmap-marker { color: var(--ochre); }
+.roadmap-item.next { background: var(--paper-deep); border-color: var(--rust); border-width: 2px; }
+.roadmap-item.thinking { background: var(--paper); border-style: dashed; }
+.roadmap-marker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--rust);
+  padding-top: 2px;
+}
+.roadmap-item strong {
+  display: block;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+.roadmap-item p {
+  font-size: 13px;
+  line-height: 1.55;
+  margin: 0;
+  opacity: 0.85;
+}
+.roadmap-item.done.current strong { color: var(--paper); }
+.roadmap-item a { color: inherit; text-decoration: underline; text-decoration-color: var(--rust); }
+
+.roadmap-suggest {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-top: 40px;
+  padding-top: 40px;
+  border-top: 1px solid var(--ink);
+  align-items: start;
+}
+.roadmap-suggest h3 {
+  font-size: 28px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+.roadmap-suggest > div:first-child p {
+  font-size: 15px;
+  line-height: 1.6;
+  opacity: 0.75;
+  max-width: 420px;
+}
+
+@media (max-width: 900px) {
+  .roadmap-grid { grid-template-columns: 1fr; gap: 32px; }
+  .roadmap-suggest { grid-template-columns: 1fr; gap: 24px; }
+}
+
+/* ============ SIGNUP / FOOTER ============ */
+.signup {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 80px 32px;
+  border-bottom: none;
+}
+.signup-inner {
+  max-width: 800px; margin: 0 auto; text-align: center;
+}
+.signup h2 {
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 24px;
+}
+.signup h2 em { font-style: italic; color: var(--ochre); }
+.signup p { font-size: 18px; margin-bottom: 32px; opacity: 0.85; }
+.signup-form { display: flex; gap: 0; max-width: 500px; margin: 0 auto; }
+.signup-form input {
+  flex: 1;
+  padding: 16px 20px;
+  background: transparent;
+  border: 1px solid var(--paper);
+  border-right: none;
+  color: var(--paper);
+  font-family: 'Fraunces', serif;
+  font-size: 16px;
+}
+.signup-form input::placeholder { color: var(--paper); opacity: 0.5; }
+.signup-form button {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--paper);
+  padding: 0 24px;
+  cursor: pointer;
+}
+.signup-form button:hover { background: var(--ochre); border-color: var(--ochre); }
+
+footer {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 32px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.6;
+  text-align: center;
+  border-top: 1px solid rgba(243, 237, 224, 0.2);
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 900px) {
+  .hero-grid, .taiwan-intro, .case-study, .venues-grid, .gathering-inner { grid-template-columns: 1fr; gap: 40px; }
+  .gathering-label { writing-mode: horizontal-tb; transform: none; border-left: none; border-top: 1px solid var(--paper); padding: 8px 0 0 0; }
+  .gathering-svg { display: none; }
+  .hero-illo { display: none; }
+  .masthead { padding: 12px 20px; flex-wrap: wrap; gap: 12px; }
+  .masthead nav { gap: 14px; flex-wrap: wrap; }
+  section { padding: 60px 20px; }
+  .hero { padding: 60px 20px 40px; }
+  .signup-inner > div[style*="grid-template-columns"] { grid-template-columns: 1fr !important; gap: 16px !important; }
+  #why .gathering-inner > div:first-child { grid-template-columns: 1fr !important; gap: 16px !important; }
+  #why .gathering-inner > div:last-child { margin: 0 !important; }
+}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<header class="masthead">
+  <div>The Ministry of the Future <span style="opacity:0.5;">⟶</span> AU</div>
+  <nav>
+    <a href="#why">Why</a>
+    <a href="#taiwan">Taiwan</a>
+    <a href="vaustralia.html" style="color: var(--rust); border-bottom-color: var(--rust);">vAustralia ↗</a>
+    <a href="#roadmap">Roadmap</a>
+    <a href="#follow">Follow</a>
+  </nav>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <svg class="hero-illo" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+    <!-- Concentric circles + radiating points: nodding to the cluster map -->
+    <g fill="none" stroke="#1a1814" stroke-width="1">
+      <circle cx="200" cy="200" r="180"/>
+      <circle cx="200" cy="200" r="140"/>
+      <circle cx="200" cy="200" r="100"/>
+      <circle cx="200" cy="200" r="60"/>
+      <circle cx="200" cy="200" r="20"/>
+    </g>
+    <g stroke="#1a1814" stroke-width="0.5" opacity="0.4">
+      <line x1="200" y1="20" x2="200" y2="380"/>
+      <line x1="20" y1="200" x2="380" y2="200"/>
+      <line x1="73" y1="73" x2="327" y2="327"/>
+      <line x1="327" y1="73" x2="73" y2="327"/>
+    </g>
+    <!-- scattered cluster points -->
+    <g fill="#b8451f">
+      <circle cx="140" cy="120" r="3"/><circle cx="160" cy="140" r="3"/><circle cx="125" cy="155" r="3"/>
+      <circle cx="155" cy="115" r="3"/><circle cx="135" cy="135" r="3"/>
+    </g>
+    <g fill="#5c6b4a">
+      <circle cx="280" cy="240" r="3"/><circle cx="265" cy="260" r="3"/><circle cx="290" cy="265" r="3"/>
+      <circle cx="270" cy="280" r="3"/><circle cx="295" cy="245" r="3"/>
+    </g>
+    <g fill="#c98a2b">
+      <circle cx="240" cy="120" r="3"/><circle cx="260" cy="135" r="3"/><circle cx="245" cy="145" r="3"/>
+      <circle cx="270" cy="115" r="3"/>
+    </g>
+    <!-- bridging point -->
+    <circle cx="200" cy="200" r="6" fill="#1a1814"/>
+    <circle cx="200" cy="200" r="12" fill="none" stroke="#1a1814" stroke-width="1"/>
+  </svg>
+  <div class="hero-grid">
+    <div>
+      <h1>What should<br>Australia <em>build</em><br>next?</h1>
+      <div class="hero-meta">
+        <span>The Ministry of the Future</span>
+        <span>↳ Australia</span>
+        <span>An experiment in collective imagination</span>
+      </div>
+    </div>
+    <div>
+      <p class="hero-pitch">
+        The Ministry of the Future is a small project testing whether <strong>vAustralia</strong> — our adaptation of <strong>Polis</strong>, the deliberation tool used by <strong>vTaiwan</strong> to resolve real political deadlocks in Taipei — could help Australians think together about what this country should become. We're running a dry run. You're invited to try it.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY ============ -->
+<section class="gathering" id="why">
+  <div class="gathering-inner" style="display: block; max-width: 1100px;">
+    <div style="display: grid; grid-template-columns: auto 1fr; gap: 32px; align-items: start; margin-bottom: 32px;">
+      <div class="gathering-label">Why this exists</div>
+      <div class="gathering-detail">
+        <h2>Democracy is <em>slipping</em><br>almost everywhere.</h2>
+      </div>
+    </div>
+    <div style="max-width: 760px; margin: 0 0 0 auto; display: flex; flex-direction: column; gap: 20px; font-size: 17px; line-height: 1.65;">
+      <p>
+        For the first time in more than twenty years, the world has more autocracies than democracies — 91 to 88. Nearly a quarter of all countries are now in active democratic backsliding, including, for the first time in modern history, large and stable Western democracies like the United States, the United Kingdom, and Italy. Polarisation is deepening in roughly a quarter of all countries on earth.<sup style="color: var(--ochre);"><a href="https://www.v-dem.net/publications/democracy-reports/" style="color: var(--ochre); text-decoration: none;">1</a></sup>
+      </p>
+      <p>
+        Australia is, for now, an unusual exception. A record 74% of Australians say democracy is preferable to any other form of government — the highest figure the Lowy Institute has ever recorded. But 70% also believe social media is making democracy worse, and trust in our political parties has been in long decline.<sup style="color: var(--ochre);"><a href="https://poll.lowyinstitute.org/report/2025/" style="color: var(--ochre); text-decoration: none;">2</a></sup> We are holding the line — but we're holding it on infrastructure that was built before the internet, and we're holding it while every other comparable country slides past us in the wrong direction.
+      </p>
+      <p>
+        The same digital tools that have hollowed out public discourse over the past two decades can be turned the other way. <strong>Polis</strong>, the deliberation method developed by a Seattle team and famously deployed by Audrey Tang's team in Taiwan, has been used to resolve legislative deadlocks across more than a dozen countries — from Uber regulation in Taipei to climate policy in Austria, fintech rules in Britain, and a constitutional consultation for an AI system. The pattern in every case is the same: people who appeared to be at war with each other turned out to share more than the loudest voices suggested. The tool found the agreement that the noise was hiding.
+      </p>
+      <p style="border-top: 1px solid rgba(243, 237, 224, 0.25); padding-top: 16px; margin-top: 8px; font-size: 12px; font-family: 'JetBrains Mono', monospace; opacity: 0.6; line-height: 1.6;">
+        <span style="color: var(--ochre);">1.</span> V-Dem Institute, <em>Democracy Report 2026: Unraveling the Democratic Era?</em>, University of Gothenburg, 2026. &nbsp;&nbsp; <span style="color: var(--ochre);">2.</span> Lowy Institute Poll 2025, Sydney, June 2025.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TAIWAN SECTION ============ -->
+<section id="taiwan">
+  <div class="section-inner">
+    <span class="section-tag">Field Notes / 01</span>
+    <h2 class="section-title">How they did it<br>in <em>Taiwan</em>.</h2>
+    <p class="lede">
+      The method we use isn't ours. It was forged in Taipei after the 2014 Sunflower Movement, by a civic-tech crew called g0v and a digital minister named Audrey Tang. Over the past decade it has shaped real legislation — on ride-sharing, alcohol sales, fintech, telemedicine — with a documented government action rate of around 80%. Here's how it works, and why it works.
+    </p>
+
+    <!-- ===== Bridging diagram ===== -->
+    <div class="taiwan-intro">
+      <div class="taiwan-intro-text">
+        <p>
+          The core insight is almost embarrassingly simple. On most contested issues, people aren't actually as divided as the loudest voices suggest. They're divided on <em>some</em> things and quietly agreed on others — but the agreed parts are invisible because nobody's shouting about them.
+        </p>
+        <p>
+          The Taiwanese tool, called <strong>Polis</strong>, uses a clustering algorithm to map opinion groups in real time, then surfaces the statements that cross between them. These are called <em>bridging statements</em>. They're the ideas that earn agreement from people who otherwise disagree about everything. They're rare. They're how consensus actually works.
+        </p>
+        <p>
+          What gets hidden, on purpose, is the divisive stuff. The platform doesn't reward outrage. It rewards finding the thing your opponent can also live with.
+        </p>
+      </div>
+
+      <div class="bridging-diagram">
+        <h3><span>Fig. 01 — How bridging works</span><span>↓</span></h3>
+        <svg class="bridging-svg" viewBox="0 0 500 380" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="dots" patternUnits="userSpaceOnUse" width="6" height="6">
+              <circle cx="3" cy="3" r="0.5" fill="#1a1814" opacity="0.3"/>
+            </pattern>
+          </defs>
+          <rect width="500" height="380" fill="url(#dots)"/>
+
+          <!-- Two opinion clusters as overlapping ellipses -->
+          <ellipse cx="160" cy="190" rx="130" ry="100" fill="#b8451f" fill-opacity="0.12" stroke="#b8451f" stroke-width="1.5"/>
+          <ellipse cx="340" cy="190" rx="130" ry="100" fill="#5c6b4a" fill-opacity="0.12" stroke="#5c6b4a" stroke-width="1.5"/>
+
+          <!-- Cluster A points (left) -->
+          <g fill="#b8451f">
+            <circle cx="100" cy="160" r="3"/><circle cx="120" cy="180" r="3"/>
+            <circle cx="90" cy="200" r="3"/><circle cx="115" cy="220" r="3"/>
+            <circle cx="135" cy="155" r="3"/><circle cx="80" cy="180" r="3"/>
+            <circle cx="105" cy="240" r="3"/><circle cx="140" cy="195" r="3"/>
+            <circle cx="125" cy="135" r="3"/><circle cx="95" cy="225" r="3"/>
+          </g>
+          <!-- Cluster B points (right) -->
+          <g fill="#5c6b4a">
+            <circle cx="380" cy="160" r="3"/><circle cx="400" cy="180" r="3"/>
+            <circle cx="420" cy="200" r="3"/><circle cx="395" cy="220" r="3"/>
+            <circle cx="365" cy="155" r="3"/><circle cx="410" cy="180" r="3"/>
+            <circle cx="385" cy="240" r="3"/><circle cx="370" cy="195" r="3"/>
+            <circle cx="405" cy="135" r="3"/><circle cx="395" cy="225" r="3"/>
+          </g>
+
+          <!-- Divisive statement (only one cluster agrees) -->
+          <g>
+            <circle cx="120" cy="100" r="6" fill="#b8451f"/>
+            <line x1="120" y1="100" x2="160" y2="190" stroke="#b8451f" stroke-width="0.5" stroke-dasharray="2,2"/>
+            <text x="120" y="85" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#1a1814">DIVISIVE</text>
+            <text x="120" y="75" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#1a1814" opacity="0.5">hidden by algorithm</text>
+          </g>
+
+          <!-- Bridging statement (both clusters agree) -->
+          <g>
+            <circle cx="250" cy="320" r="10" fill="#1a1814"/>
+            <circle cx="250" cy="320" r="16" fill="none" stroke="#1a1814" stroke-width="1"/>
+            <line x1="250" y1="320" x2="160" y2="220" stroke="#1a1814" stroke-width="0.7"/>
+            <line x1="250" y1="320" x2="340" y2="220" stroke="#1a1814" stroke-width="0.7"/>
+            <text x="250" y="355" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#1a1814" font-weight="700">BRIDGING</text>
+            <text x="250" y="368" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#1a1814" opacity="0.5">surfaced &amp; promoted</text>
+          </g>
+
+          <!-- Labels for clusters -->
+          <text x="160" y="290" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#b8451f" font-weight="700">CLUSTER A</text>
+          <text x="340" y="290" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#5c6b4a" font-weight="700">CLUSTER B</text>
+
+          <!-- Title bar -->
+          <text x="20" y="30" font-family="JetBrains Mono" font-size="9" fill="#1a1814" opacity="0.6">opinion space → 2D projection (PCA + k-means)</text>
+        </svg>
+        <p class="diagram-caption">
+          Each dot is a participant. The two ellipses are opinion clusters discovered by the algorithm. A statement only one cluster agrees with (top) gets demoted. A statement <em>both</em> clusters agree with (bottom) gets surfaced — that's the bridge. Consensus is built from the bottom up, not negotiated top-down.
+        </p>
+      </div>
+    </div>
+
+    <!-- ===== Process flow ===== -->
+    <div class="process-flow">
+      <h3>Fig. 02 — The vTaiwan process, end to end</h3>
+      <svg class="process-svg" viewBox="0 0 1200 280" xmlns="http://www.w3.org/2000/svg">
+        <!-- Horizontal axis line -->
+        <line x1="60" y1="140" x2="1140" y2="140" stroke="#1a1814" stroke-width="1.5"/>
+
+        <!-- Stage 1: Proposal -->
+        <g>
+          <circle cx="120" cy="140" r="32" fill="#f3ede0" stroke="#1a1814" stroke-width="2"/>
+          <text x="120" y="145" text-anchor="middle" font-family="Fraunces" font-size="22" font-weight="300">01</text>
+          <text x="120" y="200" text-anchor="middle" font-family="JetBrains Mono" font-size="11" font-weight="700">PROPOSAL</text>
+          <text x="120" y="215" text-anchor="middle" font-family="Fraunces" font-size="11" font-style="italic">stakeholder mapping</text>
+          <text x="120" y="228" text-anchor="middle" font-family="Fraunces" font-size="11" font-style="italic">+ Wed. mini-hackathon</text>
+          <text x="120" y="90" text-anchor="middle" font-family="JetBrains Mono" font-size="9" opacity="0.5">offline</text>
+        </g>
+
+        <!-- Stage 2: Opinion (Polis) - the highlighted one -->
+        <g>
+          <circle cx="380" cy="140" r="42" fill="#b8451f" stroke="#1a1814" stroke-width="2"/>
+          <text x="380" y="148" text-anchor="middle" font-family="Fraunces" font-size="28" font-weight="300" fill="#f3ede0">02</text>
+          <text x="380" y="210" text-anchor="middle" font-family="JetBrains Mono" font-size="11" font-weight="700">OPINION</text>
+          <text x="380" y="225" text-anchor="middle" font-family="Fraunces" font-size="11" font-style="italic">Polis: vote, propose,</text>
+          <text x="380" y="238" text-anchor="middle" font-family="Fraunces" font-size="11" font-style="italic">cluster, surface bridges</text>
+          <text x="380" y="80" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#b8451f" font-weight="700">↑ THIS IS WHERE AGORA SITS</text>
+          <text x="380" y="92" text-anchor="middle" font-family="JetBrains Mono" font-size="9" opacity="0.5">online</text>
+        </g>
+
+        <!-- Stage 3: Reflection -->
+        <g>
+          <circle cx="640" cy="140" r="32" fill="#f3ede0" stroke="#1a1814" stroke-width="2"/>
+          <text x="640" y="145" text-anchor="middle" font-family="Fraunces" font-size="22" font-weight="300">03</text>
+          <text x="640" y="200" text-anchor="middle" font-family="JetBrains Mono" font-size="11" font-weight="700">REFLECTION</text>
+          <text x="640" y="215" text-anchor="middle" font-family="Fraunces" font-size="11" font-style="italic">live-streamed face-to-face</text>
+          <text x="640" y="228" text-anchor="middle" font-family="Fraunces" font-size="11" font-style="italic">stakeholder meeting</text>
+          <text x="640" y="90" text-anchor="middle" font-family="JetBrains Mono" font-size="9" opacity="0.5">offline</text>
+        </g>
+
+        <!-- Stage 4: Legislation -->
+        <g>
+          <circle cx="900" cy="140" r="32" fill="#f3ede0" stroke="#1a1814" stroke-width="2"/>
+          <text x="900" y="145" text-anchor="middle" font-family="Fraunces" font-size="22" font-weight="300">04</text>
+          <text x="900" y="200" text-anchor="middle" font-family="JetBrains Mono" font-size="11" font-weight="700">LEGISLATION</text>
+          <text x="900" y="215" text-anchor="middle" font-family="Fraunces" font-size="11" font-style="italic">consensus → policy or</text>
+          <text x="900" y="228" text-anchor="middle" font-family="Fraunces" font-size="11" font-style="italic">explanation if rejected</text>
+          <text x="900" y="90" text-anchor="middle" font-family="JetBrains Mono" font-size="9" opacity="0.5">offline</text>
+        </g>
+
+        <!-- Outcome -->
+        <g>
+          <circle cx="1100" cy="140" r="20" fill="#1a1814"/>
+          <text x="1100" y="146" text-anchor="middle" font-family="Fraunces" font-size="14" fill="#f3ede0" font-weight="300">→</text>
+          <text x="1100" y="200" text-anchor="middle" font-family="JetBrains Mono" font-size="10" font-weight="700">~80% acted on</text>
+          <text x="1100" y="213" text-anchor="middle" font-family="Fraunces" font-size="10" font-style="italic">since 2015</text>
+        </g>
+
+        <!-- Connecting arrows -->
+        <g stroke="#1a1814" stroke-width="1" fill="none" opacity="0.4">
+          <line x1="155" y1="140" x2="335" y2="140" marker-end="url(#arr)"/>
+          <line x1="425" y1="140" x2="605" y2="140" marker-end="url(#arr)"/>
+          <line x1="675" y1="140" x2="865" y2="140" marker-end="url(#arr)"/>
+          <line x1="935" y1="140" x2="1075" y2="140" marker-end="url(#arr)"/>
+        </g>
+        <defs>
+          <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#1a1814"/>
+          </marker>
+        </defs>
+      </svg>
+      <p class="diagram-caption" style="text-align:center;margin-top:8px;">
+        Polis is one stage of four. The platform handles the opinion-mapping. Humans — facilitators, stakeholders, civil servants — handle everything else. The Ministry of the Future is our version of the human work around the tool.
+      </p>
+    </div>
+
+    <!-- ============ CASE STUDIES ============ -->
+    <div class="case-studies">
+      <h2 class="section-title" style="font-size:clamp(32px, 5vw, 56px);margin-bottom:24px;">Two cases<br>that show <em>how</em>.</h2>
+
+      <!-- CASE 1: UBER -->
+      <div class="case-study">
+        <div class="case-illustration">
+          <svg viewBox="0 0 400 360" xmlns="http://www.w3.org/2000/svg">
+            <!-- 4 groups → 2 → consensus -->
+            <text x="200" y="20" text-anchor="middle" font-family="JetBrains Mono" font-size="9" font-weight="700">Fig. 03 — The Uber consensus</text>
+
+            <!-- Stage 1: Four groups -->
+            <text x="60" y="50" text-anchor="middle" font-family="JetBrains Mono" font-size="8" opacity="0.6">START</text>
+            <g>
+              <circle cx="30" cy="80" r="14" fill="#b8451f" fill-opacity="0.3" stroke="#b8451f"/>
+              <text x="30" y="83" text-anchor="middle" font-family="JetBrains Mono" font-size="6">UBER DRV</text>
+              <circle cx="90" cy="80" r="14" fill="#c98a2b" fill-opacity="0.3" stroke="#c98a2b"/>
+              <text x="90" y="83" text-anchor="middle" font-family="JetBrains Mono" font-size="6">TAXI DRV</text>
+              <circle cx="30" cy="120" r="14" fill="#5c6b4a" fill-opacity="0.3" stroke="#5c6b4a"/>
+              <text x="30" y="123" text-anchor="middle" font-family="JetBrains Mono" font-size="6">UBER PAX</text>
+              <circle cx="90" cy="120" r="14" fill="#2c3e4a" fill-opacity="0.3" stroke="#2c3e4a"/>
+              <text x="90" y="123" text-anchor="middle" font-family="JetBrains Mono" font-size="6">TAXI PAX</text>
+            </g>
+
+            <!-- arrow -->
+            <line x1="130" y1="100" x2="170" y2="100" stroke="#1a1814" stroke-width="1" marker-end="url(#arr2)"/>
+
+            <!-- Stage 2: Two groups -->
+            <text x="220" y="50" text-anchor="middle" font-family="JetBrains Mono" font-size="8" opacity="0.6">COLLAPSED</text>
+            <g>
+              <ellipse cx="200" cy="100" rx="22" ry="16" fill="#b8451f" fill-opacity="0.25" stroke="#b8451f"/>
+              <text x="200" y="103" text-anchor="middle" font-family="JetBrains Mono" font-size="6">PRO-UBER</text>
+              <ellipse cx="245" cy="100" rx="22" ry="16" fill="#5c6b4a" fill-opacity="0.25" stroke="#5c6b4a"/>
+              <text x="245" y="103" text-anchor="middle" font-family="JetBrains Mono" font-size="6">ANTI-UBER</text>
+            </g>
+
+            <!-- arrow -->
+            <line x1="280" y1="100" x2="320" y2="100" stroke="#1a1814" stroke-width="1" marker-end="url(#arr2)"/>
+
+            <!-- Stage 3: Bridge -->
+            <text x="360" y="50" text-anchor="middle" font-family="JetBrains Mono" font-size="8" opacity="0.6">BRIDGE</text>
+            <circle cx="360" cy="100" r="18" fill="#1a1814"/>
+            <circle cx="360" cy="100" r="24" fill="none" stroke="#1a1814"/>
+            <text x="360" y="103" text-anchor="middle" font-family="JetBrains Mono" font-size="6" fill="#f3ede0">SAFETY</text>
+
+            <!-- The 7 bridging statements -->
+            <line x1="20" y1="180" x2="380" y2="180" stroke="#1a1814" stroke-width="0.5"/>
+            <text x="200" y="200" text-anchor="middle" font-family="JetBrains Mono" font-size="9" font-weight="700">7 STATEMENTS · ~80% AGREEMENT</text>
+
+            <g font-family="Fraunces" font-size="9" font-style="italic" fill="#1a1814">
+              <text x="20" y="220">→ Government should set fair regulatory regime</text>
+              <text x="20" y="234">→ Private passenger vehicles must register</text>
+              <text x="20" y="248">→ Drivers should hold professional licenses</text>
+              <text x="20" y="262">→ Insurance must cover passengers</text>
+              <text x="20" y="276">→ Fair taxation across all platforms</text>
+              <text x="20" y="290">→ Drivers may join multiple fleets</text>
+              <text x="20" y="304">→ Consumer protection takes priority</text>
+            </g>
+
+            <!-- Outcome arrow -->
+            <line x1="20" y1="325" x2="380" y2="325" stroke="#1a1814" stroke-width="0.5" stroke-dasharray="2,2"/>
+            <text x="200" y="345" text-anchor="middle" font-family="JetBrains Mono" font-size="8" font-weight="700" fill="#b8451f">→ ADOPTED INTO LAW BY MOTC, 2016</text>
+
+            <defs>
+              <marker id="arr2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+                <path d="M0,0 L10,5 L0,10 z" fill="#1a1814"/>
+              </marker>
+            </defs>
+          </svg>
+          <p class="case-illo-cap">Four groups → two camps → seven shared truths.</p>
+        </div>
+        <div class="case-text">
+          <div class="case-number">Case 01 / 2015 · The Uber question</div>
+          <h3>Everyone really just<br>cared about <em>safety</em>.</h3>
+          <div class="case-stats">
+            <div class="case-stat"><span class="num">1,700+</span><span class="label">Participants</span></div>
+            <div class="case-stat"><span class="num">4 → 2</span><span class="label">Cluster collapse</span></div>
+            <div class="case-stat"><span class="num">7</span><span class="label">Bridging statements</span></div>
+            <div class="case-stat"><span class="num">80%+</span><span class="label">Consensus threshold</span></div>
+          </div>
+          <p>
+            When Uber arrived in Taiwan in 2015 it set off the same fight it set off everywhere else: taxi drivers losing 30% of their income, regulators baffled, customers worried about safety, the company itself refusing to engage. No ministry wanted to touch it. The Ministry of Transport saw Uber drivers as criminals; the Ministry of Economic Affairs didn't think they were e-commerce; the Ministry of Finance had never heard of "the sharing economy."
+          </p>
+          <p>
+            So vTaiwan ran a Polis round instead, and split participants into four stakeholder groups: Uber drivers, taxi drivers, Uber passengers, taxi passengers. Within hours the four collapsed into two — pro-Uber and anti-Uber, screaming at each other in opinion-space. Then something strange happened. As people kept proposing statements, trying to win more agreement, they started writing things both sides could live with. Insurance. Registration. Fair taxation. A level playing field. Seven statements eventually crossed the 80% bridging threshold across both camps.
+          </p>
+          <p>
+            Audrey Tang took those seven statements into a face-to-face meeting with Uber, the taxi associations, and government — live-streamed to 1,875 viewers. With clear public consensus already on the table, Uber agreed to obtain professional licenses for its drivers, release its insurance policies, and pay transport taxes. The Ministry of Transportation amended the regulations along the lines vTaiwan had produced. <strong>Nobody walked in with that compromise. The bridging algorithm found it.</strong>
+          </p>
+        </div>
+      </div>
+
+      <!-- CASE 2: ALCOHOL -->
+      <div class="case-study">
+        <div class="case-illustration">
+          <svg viewBox="0 0 400 360" xmlns="http://www.w3.org/2000/svg">
+            <text x="200" y="20" text-anchor="middle" font-family="JetBrains Mono" font-size="9" font-weight="700">Fig. 04 — The conditional yes</text>
+
+            <!-- Timeline -->
+            <line x1="40" y1="80" x2="360" y2="80" stroke="#1a1814" stroke-width="1.5"/>
+
+            <!-- 2003 -->
+            <circle cx="60" cy="80" r="6" fill="#1a1814"/>
+            <text x="60" y="65" text-anchor="middle" font-family="JetBrains Mono" font-size="8" font-weight="700">2003</text>
+            <text x="60" y="100" text-anchor="middle" font-family="Fraunces" font-size="9" font-style="italic">ban</text>
+
+            <!-- 2012 -->
+            <circle cx="160" cy="80" r="6" fill="#1a1814"/>
+            <text x="160" y="65" text-anchor="middle" font-family="JetBrains Mono" font-size="8" font-weight="700">2012</text>
+            <text x="160" y="100" text-anchor="middle" font-family="Fraunces" font-size="9" font-style="italic">deadlock</text>
+
+            <!-- 2016 -->
+            <circle cx="260" cy="80" r="10" fill="#b8451f"/>
+            <text x="260" y="62" text-anchor="middle" font-family="JetBrains Mono" font-size="8" font-weight="700">2016</text>
+            <text x="260" y="105" text-anchor="middle" font-family="Fraunces" font-size="9" font-style="italic">vTaiwan round</text>
+
+            <!-- Outcome -->
+            <circle cx="340" cy="80" r="6" fill="#1a1814"/>
+            <text x="340" y="65" text-anchor="middle" font-family="JetBrains Mono" font-size="8" font-weight="700">→</text>
+            <text x="340" y="100" text-anchor="middle" font-family="Fraunces" font-size="9" font-style="italic">policy</text>
+
+            <!-- The four stakeholder groups in opinion space -->
+            <text x="200" y="140" text-anchor="middle" font-family="JetBrains Mono" font-size="9" opacity="0.6">~450 PARTICIPANTS · 4 GROUPS</text>
+
+            <!-- venn-ish -->
+            <g>
+              <circle cx="140" cy="200" r="40" fill="#b8451f" fill-opacity="0.15" stroke="#b8451f" stroke-width="1"/>
+              <text x="120" y="195" font-family="JetBrains Mono" font-size="6" fill="#b8451f">RETAILERS</text>
+              <circle cx="200" cy="180" r="40" fill="#c98a2b" fill-opacity="0.15" stroke="#c98a2b" stroke-width="1"/>
+              <text x="200" y="165" font-family="JetBrains Mono" font-size="6" fill="#c98a2b">E-COMMERCE</text>
+              <circle cx="260" cy="200" r="40" fill="#5c6b4a" fill-opacity="0.15" stroke="#5c6b4a" stroke-width="1"/>
+              <text x="265" y="195" font-family="JetBrains Mono" font-size="6" fill="#5c6b4a">PARENTS</text>
+              <circle cx="200" cy="240" r="40" fill="#2c3e4a" fill-opacity="0.15" stroke="#2c3e4a" stroke-width="1"/>
+              <text x="195" y="270" font-family="JetBrains Mono" font-size="6" fill="#2c3e4a">PUB. HEALTH</text>
+
+              <!-- intersection point -->
+              <circle cx="200" cy="210" r="8" fill="#1a1814"/>
+              <text x="200" y="213" text-anchor="middle" font-family="JetBrains Mono" font-size="6" fill="#f3ede0">YES,</text>
+              <text x="200" y="221" text-anchor="middle" font-family="JetBrains Mono" font-size="6" fill="#f3ede0">BUT</text>
+            </g>
+
+            <!-- The "but" -->
+            <line x1="20" y1="305" x2="380" y2="305" stroke="#1a1814" stroke-width="0.5"/>
+            <text x="200" y="320" text-anchor="middle" font-family="JetBrains Mono" font-size="8" font-weight="700">THE CONDITIONS THAT EMERGED:</text>
+            <g font-family="Fraunces" font-size="9" font-style="italic">
+              <text x="200" y="335" text-anchor="middle">age verification · delivery-hour limits · ID at handover</text>
+              <text x="200" y="350" text-anchor="middle" font-weight="700" fill="#b8451f">a compromise nobody started with</text>
+            </g>
+          </svg>
+          <p class="case-illo-cap">A 13-year deadlock, broken in three weeks.</p>
+        </div>
+        <div class="case-text">
+          <div class="case-number">Case 02 / 2016 · The alcohol question</div>
+          <h3>A deadlock<br><em>nobody</em> could break.</h3>
+          <div class="case-stats">
+            <div class="case-stat"><span class="num">~450</span><span class="label">Participants</span></div>
+            <div class="case-stat"><span class="num">13 yrs</span><span class="label">Prior deadlock</span></div>
+            <div class="case-stat"><span class="num">3 wks</span><span class="label">To consensus</span></div>
+            <div class="case-stat"><span class="num">4</span><span class="label">Stakeholder groups</span></div>
+          </div>
+          <p>
+            Taiwan banned online alcohol sales in 2003. By 2012 the Ministry of Finance wanted to lift the ban, but every attempt to write new rules collapsed under the weight of the people in the room: retailers wanted no restrictions, e-commerce platforms wanted clarity, parents wanted protection, public-health groups wanted prohibition. They had been talking past each other for years. The regulation went nowhere.
+          </p>
+          <p>
+            In March 2016, the question went to vTaiwan. About 450 citizens proposed and voted on solutions over a few weeks. What emerged from the cluster map wasn't yes-or-no. It was <em>yes, but</em> — a conditional permission with specific guardrails: age verification at purchase, restricted delivery hours, identity checks at handover. None of those conditions were anyone's opening position. They were the bridging statements — the things every group could agree on once they stopped trying to win.
+          </p>
+          <p>
+            <strong>The new regulation reflected those conditions almost exactly.</strong> This is the case that's harder to tell than the Uber one, but it's the more important one. Uber proved Polis could find consensus on a polarised issue. The alcohol case proved it could produce a <em>novel</em> compromise — one that nobody walked in carrying, that emerged from the structure of agreement itself. That's the part of the Taiwanese method we're trying to bring here.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="pullquote">
+      The Ministry of the Future is a small attempt to test whether the human work around this tool — the kind of work that made Taiwan's experiment matter — could be adapted for Australia. The first step is finding out if the tool itself resonates with people here.
+    </p>
+
+  </div>
+</section>
+
+<!-- ============ TRY VAUSTRALIA CTA ============ -->
+<section style="background: var(--ink); color: var(--paper); padding: 80px 32px; border-bottom: 2px solid var(--ink);">
+  <div class="section-inner" style="text-align: center;">
+    <span class="section-tag" style="border-color: var(--paper); color: var(--paper);">The dry run / Round 01</span>
+    <h2 class="section-title" style="margin: 0 auto 24px; max-width: 900px;">
+      The first round<br>is <em style="color: var(--ochre);">live</em>.
+    </h2>
+    <p class="lede" style="margin: 0 auto 24px; opacity: 0.85;">
+      We've put one earnest question into vAustralia — <em>finish the sentence: in an ideal world…</em> — with five seed statements about water, neighbours, trains, cities, and housing. Vote on them. Watch the cluster map fill up as other people vote. See what we secretly agree on.
+    </p>
+    <p class="lede" style="margin: 0 auto 40px; opacity: 0.7; font-size: 17px;">
+      This is a dry run. We're testing whether the tool resonates here, whether the bridging algorithm finds anything interesting at small scale, and whether real Australians want to think about questions like this. The answers will shape what we do next.
+    </p>
+    <a href="vaustralia.html" style="
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      background: var(--ochre);
+      color: var(--ink);
+      padding: 20px 40px;
+      text-decoration: none;
+      border: 2px solid var(--ochre);
+      font-weight: 700;
+      transition: all 0.15s;
+    " onmouseover="this.style.background='var(--paper)';this.style.borderColor='var(--paper)';" onmouseout="this.style.background='var(--ochre)';this.style.borderColor='var(--ochre)';">
+      Open vAustralia v1.1 →
+    </a>
+    <p style="margin-top: 32px; font-size: 13px; font-style: italic; opacity: 0.6; max-width: 500px; margin-left: auto; margin-right: auto;">
+      No signup. No email. Anonymous by default — just like the Taiwanese version. Three minutes.
+    </p>
+  </div>
+</section>
+
+<!-- ============ ROADMAP ============ -->
+<section class="venues" id="roadmap">
+  <div class="section-inner">
+    <span class="section-tag">Field Notes / 02</span>
+    <h2 class="section-title">Built slowly,<br>in <em>public</em>.</h2>
+    <p class="lede">
+      The Ministry of the Future is being built openly. Here's what we've done, what we're working on next, and what we're thinking about. Add your own suggestions at the bottom — the same way the tool itself works: collectively.
+    </p>
+
+    <!-- ===== ROADMAP TIMELINE ===== -->
+    <div class="roadmap-grid">
+
+      <!-- WHAT WE'VE DONE -->
+      <div class="roadmap-column">
+        <h3 class="roadmap-heading">What we've done</h3>
+        <ol class="roadmap-list">
+          <li class="roadmap-item done">
+            <span class="roadmap-marker">01</span>
+            <div>
+              <strong>The first vAustralia prototype</strong>
+              <p>A standalone HTML build of the deliberation tool with simulated participants voting on Australian infrastructure statements. Local-first, no backend.</p>
+            </div>
+          </li>
+          <li class="roadmap-item done">
+            <span class="roadmap-marker">02</span>
+            <div>
+              <strong>Real multi-user voting</strong>
+              <p>Replaced the local prototype with a Supabase-backed version, so multiple people in different places can vote on the same round simultaneously.</p>
+            </div>
+          </li>
+          <li class="roadmap-item done">
+            <span class="roadmap-marker">03</span>
+            <div>
+              <strong>The Ministry of the Future site</strong>
+              <p>This page. The project's public face, the Taiwan story, the case for why this work matters.</p>
+            </div>
+          </li>
+          <li class="roadmap-item done">
+            <span class="roadmap-marker">04</span>
+            <div>
+              <strong>Stakeholder &amp; systems map</strong>
+              <p>A concentric-circle map of the Australian civic-tech and deliberative-democracy ecosystem — who's already doing this work, who could be allies, who sets the context.</p>
+            </div>
+          </li>
+          <li class="roadmap-item done current">
+            <span class="roadmap-marker">05</span>
+            <div>
+              <strong>vAustralia v1.1 — the dry run</strong>
+              <p>The current round. One earnest question, five seed statements, fully anonymous, single-round Polis-faithful. Live now. Testing whether the tool resonates.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <!-- WHAT'S NEXT -->
+      <div class="roadmap-column">
+        <h3 class="roadmap-heading">What's next</h3>
+        <ol class="roadmap-list">
+          <li class="roadmap-item next">
+            <span class="roadmap-marker">→</span>
+            <div>
+              <strong>Crowdsourcing a regional festival</strong>
+              <p>Use vAustralia to help shape a small festival in central Victoria — music, water slides, the works. The kind of festival that could only exist because the people coming to it had a hand in shaping it. The first real-world use of the tool, and a deliberately joyful one.</p>
+            </div>
+          </li>
+          <li class="roadmap-item next">
+            <span class="roadmap-marker">→</span>
+            <div>
+              <strong>A trial at a tax reform conference</strong>
+              <p>We're in early conversations with the Australian network of the <a href="https://www.schoolformoralambition.com/" target="_blank" rel="noopener">School of Moral Ambition</a> about trialling vAustralia at a tax reform policy conference later this year. Tax reform is one of the most chronically deadlocked policy areas in Australian politics — exactly the kind of place where the bridging method earned its reputation in Taiwan.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <!-- THINKING ABOUT -->
+      <div class="roadmap-column">
+        <h3 class="roadmap-heading">What we're thinking about</h3>
+        <ol class="roadmap-list">
+          <li class="roadmap-item thinking">
+            <span class="roadmap-marker">?</span>
+            <div>
+              <strong>Larger infrastructure deliberations</strong>
+              <p>High-speed rail, water security, energy grids, housing supply — the chronically deadlocked questions Australia famously can't decide on. Could vAustralia help find the bridging statements hiding underneath?</p>
+            </div>
+          </li>
+          <li class="roadmap-item thinking">
+            <span class="roadmap-marker">?</span>
+            <div>
+              <strong>Improving the platform itself</strong>
+              <p>Better clustering algorithms, a moderation queue for participant-proposed statements, mobile-friendly cluster maps, multi-round support, exportable session artefacts.</p>
+            </div>
+          </li>
+          <li class="roadmap-item thinking">
+            <span class="roadmap-marker">?</span>
+            <div>
+              <strong>Partnering with local councils</strong>
+              <p>Running rounds with the kinds of organisations that already have a mandate to consult their communities — and that could use a better tool for it than a paper survey or a town-hall meeting.</p>
+            </div>
+          </li>
+          <li class="roadmap-item thinking">
+            <span class="roadmap-marker">?</span>
+            <div>
+              <strong>Joining the global Polis community</strong>
+              <p>Connecting with the Computational Democracy Project, comparing notes with Decidim and Make.org, contributing back to the open-source ecosystem we're building on.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+    </div>
+
+    <!-- ===== SUGGESTION FORM ===== -->
+    <div class="roadmap-suggest">
+      <div>
+        <h3>Suggest something for the roadmap</h3>
+        <p>What should the Ministry of the Future try next? What questions should vAustralia ask? Who should we be talking to? Tell us. We read every suggestion.</p>
+      </div>
+      <div class="venue-form" style="margin: 0;">
+        <textarea id="suggestion-input" placeholder="Your suggestion. Be as specific or as wild as you like." style="min-height: 100px;"></textarea>
+        <button onclick="submitSuggestion()" id="suggest-btn">Add to the list →</button>
+        <p id="suggest-status" style="font-size: 12px; font-style: italic; opacity: 0.6; margin-top: 12px; min-height: 18px;"></p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ FOLLOW ============ -->
+<section class="signup" id="follow">
+  <div class="signup-inner">
+    <h2>Follow<br><em>along</em>.</h2>
+    <p>The Ministry of the Future is being built slowly, in public. There's no mailing list yet, and no community to join — just this page, which we'll update as the dry run progresses and as the project finds its shape.</p>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; text-align: left;">
+      <div style="border-top: 1px solid var(--paper); padding-top: 16px;">
+        <strong style="font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ochre); display: block; margin-bottom: 8px;">01 / Bookmark</strong>
+        <p style="font-size: 14px; opacity: 0.85; margin: 0;">Bookmark this page. We'll post results from the first round here, plus what we learn and what we try next.</p>
+      </div>
+      <div style="border-top: 1px solid var(--paper); padding-top: 16px;">
+        <strong style="font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ochre); display: block; margin-bottom: 8px;">02 / Try vAustralia</strong>
+        <p style="font-size: 14px; opacity: 0.85; margin: 0;">The dry run is the most useful thing you can do right now. Three minutes, no signup. Vote, see the cluster map, read the bridging statements.</p>
+      </div>
+      <div style="border-top: 1px solid var(--paper); padding-top: 16px;">
+        <strong style="font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ochre); display: block; margin-bottom: 8px;">03 / Add to the roadmap</strong>
+        <p style="font-size: 14px; opacity: 0.85; margin: 0;">Tell us what you think this project should do next. The same way the tool itself works: collectively.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  The Ministry of the Future · Australia · A small experiment in collective imagination · Built in public
+</footer>
+
+<!-- ============ SUPABASE for suggestion form ============ -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+// ============ ROADMAP SUGGESTION FORM ============
+// Writes to the same Supabase project as vAustralia, into a `suggestions` table.
+// See agora-v1.1-schema.sql for the table definition.
+
+const SUPABASE_URL = 'https://gyjfhvdtgineviwnqvvb.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd5amZodmR0Z2luZXZpd25xdnZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU1NTQ3MzksImV4cCI6MjA5MTEzMDczOX0.Yl88asQ9BqnTURDjdEyF4OG2w-sWKUw3ED9j9okAdE4';
+
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+async function submitSuggestion() {
+  const input = document.getElementById('suggestion-input');
+  const status = document.getElementById('suggest-status');
+  const btn = document.getElementById('suggest-btn');
+  const text = input.value.trim();
+
+  if (!text || text.length < 10) {
+    status.textContent = 'Suggestions should be at least 10 characters and a complete thought.';
+    status.style.color = 'var(--rust)';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+  status.textContent = '';
+
+  try {
+    const { error } = await supabaseClient
+      .from('suggestions')
+      .insert({ text: text });
+
+    if (error) throw error;
+
+    input.value = '';
+    status.textContent = 'Thank you. We\'ll read it.';
+    status.style.color = 'var(--sage)';
+  } catch (e) {
+    console.error('Suggestion failed:', e);
+    status.textContent = 'Something went wrong. Please try again in a moment.';
+    status.style.color = 'var(--rust)';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Add to the list →';
+  }
+}
+</script>
+
+</body>
+</html>
