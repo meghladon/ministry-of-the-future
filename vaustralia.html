@@ -435,7 +435,7 @@ if (SUPABASE_URL.startsWith('TODO_') || SUPABASE_ANON_KEY.startsWith('TODO_')) {
   `;
 }
 
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // ----- Round selection from URL -----
 const urlParams = new URLSearchParams(window.location.search);
@@ -468,7 +468,7 @@ let currentStatementIdx = 0;
 // ============================================================
 
 async function loadRound() {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseClient
     .from('rounds')
     .select('*')
     .eq('id', ROUND_ID)
@@ -486,7 +486,7 @@ async function loadRound() {
 }
 
 async function loadStatements() {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseClient
     .from('statements')
     .select('*')
     .eq('round_id', ROUND_ID)
@@ -500,7 +500,7 @@ async function loadStatements() {
 }
 
 async function loadAllVotes() {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseClient
     .from('votes')
     .select('participant_id, statement_id, choice')
     .eq('round_id', ROUND_ID);
@@ -522,7 +522,7 @@ async function loadAllVotes() {
 async function ensureParticipantExists() {
   // Insert this participant if they're not already in the table.
   // This is best-effort; if it fails (e.g. they're already there) we don't care.
-  await supabase
+  await supabaseClient
     .from('participants')
     .insert({ id: PARTICIPANT_ID, round_id: ROUND_ID })
     .select();
@@ -536,7 +536,7 @@ async function castVote(statementId, choice) {
   participantCount = new Set(allVotes.map(v => v.participant_id)).size;
   renderAll();
 
-  const { error } = await supabase
+  const { error } = await supabaseClient
     .from('votes')
     .insert({
       round_id: ROUND_ID,
@@ -815,7 +815,7 @@ function escapeHtml(s) {
 // REALTIME: subscribe to new votes so the cluster map updates live
 // ============================================================
 function subscribeToUpdates() {
-  supabase
+  supabaseClient
     .channel(`agora_${ROUND_ID}`)
     .on('postgres_changes',
       { event: 'INSERT', schema: 'public', table: 'votes', filter: `round_id=eq.${ROUND_ID}` },
