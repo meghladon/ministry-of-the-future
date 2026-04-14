@@ -207,6 +207,99 @@ header .stat .live-dot {
   line-height: 1.5;
 }
 
+/* ============ PROPOSE STATEMENT ============ */
+.propose-block {
+  margin-top: 24px;
+  padding: 20px 22px;
+  background: var(--paper);
+  border: 1.5px dashed var(--ink);
+}
+.propose-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+.propose-header h3 {
+  font-size: 13px;
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  margin: 0;
+}
+.propose-hint {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.5;
+}
+.propose-help {
+  font-size: 13px;
+  line-height: 1.55;
+  margin: 0 0 12px 0;
+  opacity: 0.75;
+  font-style: italic;
+}
+.propose-help em {
+  font-style: normal;
+  background: var(--paper-deep);
+  padding: 1px 5px;
+  border-radius: 2px;
+}
+#propose-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--ink);
+  background: var(--paper-deep);
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 16px;
+  font-style: italic;
+  color: var(--ink);
+  resize: vertical;
+  line-height: 1.4;
+}
+#propose-input:focus {
+  outline: 2px solid var(--rust);
+  outline-offset: -1px;
+}
+#propose-input::placeholder {
+  opacity: 0.4;
+}
+.propose-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
+  min-height: 32px;
+}
+.propose-status {
+  font-size: 12px;
+  font-style: italic;
+  opacity: 0.7;
+  line-height: 1.4;
+}
+#propose-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  padding: 12px 18px;
+  cursor: pointer;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+#propose-btn:hover:not(:disabled) { background: var(--rust); }
+#propose-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
 /* ============ CLUSTER MAP ============ */
 .cluster-viz {
   background: var(--paper-deep);
@@ -387,11 +480,26 @@ const DEFAULT_ROUND_ID = 'r1';
 
 <div class="app">
 
-  <!-- ============ LEFT: VOTING ============ -->
+  <!-- ============ LEFT: VOTING + PROPOSE ============ -->
   <div class="panel">
     <h2>Statement to consider <span class="meta" id="statement-progress"></span></h2>
     <div class="statement-card" id="statement-card">
       <div class="loading">Connecting to the room</div>
+    </div>
+
+    <div class="propose-block" id="propose-block">
+      <div class="propose-header">
+        <h3>Add your own statement</h3>
+        <span class="propose-hint">one claim · no questions · declarative</span>
+      </div>
+      <p class="propose-help">
+        A good statement is a single assertion someone can agree or disagree with. Example: <em>"we eat less meat"</em> or <em>"the prime minister rides public transport to work"</em>. Keep it to one idea; other participants will vote on it alongside the existing statements.
+      </p>
+      <textarea id="propose-input" placeholder="in an ideal world…" rows="2"></textarea>
+      <div class="propose-footer">
+        <span class="propose-status" id="propose-status"></span>
+        <button type="button" id="propose-btn" onclick="proposeStatement()">Add to the round →</button>
+      </div>
     </div>
   </div>
 
@@ -552,6 +660,78 @@ async function castVote(statementId, choice) {
 }
 
 // ============================================================
+// PROPOSE A NEW STATEMENT
+// ============================================================
+// Option B (post-moderation): statements go live immediately.
+// To switch to pre-moderation later, change is_approved: true -> false below
+// AND run the REVERT block in vaustralia-submission-migration.sql.
+async function proposeStatement() {
+  const input = document.getElementById('propose-input');
+  const status = document.getElementById('propose-status');
+  const btn = document.getElementById('propose-btn');
+  const text = input.value.trim();
+
+  if (!text || text.length < 10) {
+    status.textContent = 'A bit more, please — at least 10 characters.';
+    status.style.color = 'var(--rust)';
+    return;
+  }
+  if (text.length > 280) {
+    status.textContent = 'Keep it under 280 characters so people can read it quickly.';
+    status.style.color = 'var(--rust)';
+    return;
+  }
+  // Gentle nudge against questions (not enforced, just a hint)
+  if (text.trim().endsWith('?')) {
+    status.textContent = 'That looks like a question. Try rephrasing as a statement.';
+    status.style.color = 'var(--rust)';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+  status.textContent = '';
+
+  try {
+    const { data, error } = await supabaseClient
+      .from('statements')
+      .insert({
+        round_id: ROUND_ID,
+        text: text,
+        is_seed: false,
+        is_approved: true,  // Option B: auto-approved, goes live immediately
+      })
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    // Add to local state so the submitter sees it in their next voting cycle
+    if (data) {
+      statements.push(data);
+    }
+    input.value = '';
+    status.textContent = 'Added. Others will see it next time they vote.';
+    status.style.color = 'var(--sage)';
+    renderAll();
+
+    // Clear the success message after a few seconds
+    setTimeout(() => {
+      if (status.textContent === 'Added. Others will see it next time they vote.') {
+        status.textContent = '';
+      }
+    }, 4000);
+  } catch (e) {
+    console.error('Propose failed:', e);
+    status.textContent = 'Something went wrong. Try again in a moment.';
+    status.style.color = 'var(--rust)';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Add to the round →';
+  }
+}
+
+// ============================================================
 // RENDERING
 // ============================================================
 
@@ -577,7 +757,7 @@ function renderStatement() {
     card.innerHTML = `
       <div class="caught-up">
         <h3>You've voted on everything.</h3>
-        <p>Watch the cluster map on the right — as more people vote, you'll see opinion groups form, and the bridging statements will reveal what everyone secretly agrees on.</p>
+        <p>Add your own statement below — or watch the cluster map on the right to see the bridging statements emerge as more people vote.</p>
       </div>
     `;
     return;
@@ -834,10 +1014,11 @@ function subscribeToUpdates() {
     .on('postgres_changes',
       { event: 'INSERT', schema: 'public', table: 'statements', filter: `round_id=eq.${ROUND_ID}` },
       async (payload) => {
-        if (payload.new.is_approved) {
-          statements.push(payload.new);
-          renderAll();
-        }
+        if (!payload.new.is_approved) return;
+        // Avoid double-adding our own optimistic insert
+        if (statements.find(s => s.id === payload.new.id)) return;
+        statements.push(payload.new);
+        renderAll();
       }
     )
     .subscribe();

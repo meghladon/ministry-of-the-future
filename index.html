@@ -552,6 +552,140 @@ h2.section-title em { font-style: italic; color: var(--rust); }
   max-width: 420px;
 }
 
+/* ============ SUGGESTION LIST ============ */
+.suggestion-list-wrap {
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--ink);
+}
+.suggestion-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.suggestion-list-header h3 {
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+.sort-toggle {
+  display: inline-flex;
+  border: 1px solid var(--ink);
+}
+.sort-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: var(--paper);
+  border: none;
+  padding: 8px 14px;
+  cursor: pointer;
+  color: var(--ink);
+  border-right: 1px solid var(--ink);
+  transition: all 0.15s;
+}
+.sort-btn:last-child { border-right: none; }
+.sort-btn:hover { background: var(--paper-deep); }
+.sort-btn.active { background: var(--ink); color: var(--paper); }
+
+.suggestion-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--ink);
+  background: var(--paper);
+}
+.suggestion-card {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 20px;
+  padding: 18px 20px;
+  border-bottom: 1px solid rgba(26,24,20,0.15);
+  align-items: start;
+}
+.suggestion-card:last-child { border-bottom: none; }
+.suggestion-card:hover { background: var(--paper-deep); }
+.suggestion-text {
+  font-size: 15px;
+  line-height: 1.5;
+  font-style: italic;
+  margin: 0 0 6px 0;
+  color: var(--ink);
+}
+.suggestion-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.5;
+}
+.upvote-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--paper);
+  border: 1.5px solid var(--ink);
+  padding: 8px 14px;
+  cursor: pointer;
+  font-family: 'JetBrains Mono', monospace;
+  min-width: 56px;
+  transition: all 0.15s;
+  color: var(--ink);
+}
+.upvote-btn:hover:not(:disabled) {
+  background: var(--ochre);
+  border-color: var(--ochre);
+}
+.upvote-btn.voted {
+  background: var(--rust);
+  border-color: var(--rust);
+  color: var(--paper);
+}
+.upvote-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.upvote-arrow {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+.upvote-count {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.suggestion-list-empty {
+  padding: 32px 20px;
+  text-align: center;
+  font-style: italic;
+  font-size: 14px;
+  opacity: 0.5;
+}
+
+.suggestion-list-footer {
+  text-align: center;
+  margin-top: 16px;
+}
+.see-more-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: transparent;
+  border: 1px solid var(--ink);
+  padding: 12px 24px;
+  cursor: pointer;
+  color: var(--ink);
+  transition: all 0.15s;
+}
+.see-more-btn:hover { background: var(--ink); color: var(--paper); }
+
 @media (max-width: 900px) {
   .roadmap-grid { grid-template-columns: 1fr; gap: 32px; }
   .roadmap-suggest { grid-template-columns: 1fr; gap: 24px; }
@@ -689,7 +823,7 @@ footer {
     </div>
     <div>
       <p class="hero-pitch">
-        The Ministry of the Future is a small project testing whether <strong>vAustralia</strong> — our adaptation of <strong>Polis</strong>, the deliberation tool used by <strong>vTaiwan</strong> to resolve real political deadlocks in Taipei — could help Australians think together about what this country should become. We're running a dry run. You're invited to try it.
+        The Ministry of the Future is a project testing whether <strong>vAustralia</strong> — our adaptation of <strong>Polis</strong>, the deliberation tool used by <strong>vTaiwan</strong> to resolve real political deadlocks in Taipei — could help Australians think together about what this country should become. We're running a dry run. You're invited to try it.
       </p>
     </div>
   </div>
@@ -1055,7 +1189,7 @@ footer {
     </div>
 
     <p class="pullquote">
-      The Ministry of the Future is a small attempt to test whether the human work around this tool — the kind of work that made Taiwan's experiment matter — could be adapted for Australia. The first step is finding out if the tool itself resonates with people here.
+      The Ministry of the Future is an experiment in whether the human work around this tool — the kind of work that made Taiwan's deliberations matter — could be adapted for Australia. The first step is finding out if the tool itself resonates with people here.
     </p>
 
   </div>
@@ -1212,12 +1346,29 @@ footer {
     <div class="roadmap-suggest">
       <div>
         <h3>Suggest something for the roadmap</h3>
-        <p>What should the Ministry of the Future try next? What questions should vAustralia ask? Who should we be talking to? Tell us. We read every suggestion.</p>
+        <p>What should the Ministry of the Future try next? What questions should vAustralia ask? Who should we be talking to? Tell us. Vote on what others have already suggested.</p>
       </div>
       <div class="venue-form" style="margin: 0;">
         <textarea id="suggestion-input" placeholder="Your suggestion. Be as specific or as wild as you like." style="min-height: 100px;"></textarea>
         <button onclick="submitSuggestion()" id="suggest-btn">Add to the list →</button>
         <p id="suggest-status" style="font-size: 12px; font-style: italic; opacity: 0.6; margin-top: 12px; min-height: 18px;"></p>
+      </div>
+    </div>
+
+    <!-- ===== SUGGESTION LIST ===== -->
+    <div class="suggestion-list-wrap" id="suggestion-list-wrap">
+      <div class="suggestion-list-header">
+        <h3>What others have suggested</h3>
+        <div class="sort-toggle" role="group" aria-label="Sort suggestions">
+          <button type="button" class="sort-btn active" data-sort="upvotes" onclick="setSort('upvotes')">Most upvoted</button>
+          <button type="button" class="sort-btn" data-sort="newest" onclick="setSort('newest')">Newest</button>
+        </div>
+      </div>
+      <div class="suggestion-list" id="suggestion-list">
+        <div class="suggestion-list-empty">Loading suggestions…</div>
+      </div>
+      <div class="suggestion-list-footer" id="suggestion-list-footer" style="display: none;">
+        <button type="button" class="see-more-btn" onclick="toggleExpanded()" id="see-more-btn">See all <span id="see-more-count">0</span> →</button>
       </div>
     </div>
 
@@ -1250,18 +1401,43 @@ footer {
   The Ministry of the Future · Australia · A small experiment in collective imagination · Built in public
 </footer>
 
-<!-- ============ SUPABASE for suggestion form ============ -->
+<!-- ============ SUPABASE for suggestion form + list ============ -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-// ============ ROADMAP SUGGESTION FORM ============
-// Writes to the same Supabase project as vAustralia, into a `suggestions` table.
-// See agora-v1.1-schema.sql for the table definition.
+// ============ ROADMAP SUGGESTIONS — FORM, LIST, UPVOTES ============
+// Writes to a `suggestions` table in the same Supabase project as vAustralia.
+// Reads suggestions and their upvote counts back so the public list can be shown.
+// Tracks upvotes via a `suggestion_votes` table and atomic RPC functions.
+// See suggestions-upvotes-migration.sql for the schema.
 
 const SUPABASE_URL = 'https://gyjfhvdtgineviwnqvvb.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd5amZodmR0Z2luZXZpd25xdnZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU1NTQ3MzksImV4cCI6MjA5MTEzMDczOX0.Yl88asQ9BqnTURDjdEyF4OG2w-sWKUw3ED9j9okAdE4';
 
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+// ----- Anonymous voter ID stored in localStorage -----
+const VOTER_KEY = 'motf_voter_id';
+function getVoterId() {
+  let id = null;
+  try { id = localStorage.getItem(VOTER_KEY); } catch (e) {}
+  if (!id) {
+    id = 'v_' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
+    try { localStorage.setItem(VOTER_KEY, id); } catch (e) {}
+  }
+  return id;
+}
+const VOTER_ID = getVoterId();
+
+// ----- State -----
+let suggestions = [];
+let myVotes = new Set();        // suggestion IDs the current voter has upvoted
+let sortMode = 'upvotes';       // 'upvotes' | 'newest'
+let expanded = false;           // whether the list is showing all or just first 5
+const COLLAPSED_LIMIT = 5;
+
+// ============================================================
+// SUBMIT A NEW SUGGESTION
+// ============================================================
 async function submitSuggestion() {
   const input = document.getElementById('suggestion-input');
   const status = document.getElementById('suggest-status');
@@ -1279,15 +1455,23 @@ async function submitSuggestion() {
   status.textContent = '';
 
   try {
-    const { error } = await supabaseClient
+    const { data, error } = await supabaseClient
       .from('suggestions')
-      .insert({ text: text });
+      .insert({ text: text })
+      .select()
+      .single();
 
     if (error) throw error;
 
     input.value = '';
     status.textContent = 'Thank you. We\'ll read it.';
     status.style.color = 'var(--sage)';
+
+    // Add the new suggestion to local state immediately
+    if (data) {
+      suggestions.unshift({ ...data, upvotes: 0 });
+      renderList();
+    }
   } catch (e) {
     console.error('Suggestion failed:', e);
     status.textContent = 'Something went wrong. Please try again in a moment.';
@@ -1297,6 +1481,184 @@ async function submitSuggestion() {
     btn.textContent = 'Add to the list →';
   }
 }
+
+// ============================================================
+// LOAD SUGGESTIONS + VOTES
+// ============================================================
+async function loadSuggestions() {
+  try {
+    const { data: sugs, error: sugsErr } = await supabaseClient
+      .from('suggestions')
+      .select('id, text, upvotes, created_at')
+      .order('created_at', { ascending: false });
+    if (sugsErr) throw sugsErr;
+    suggestions = sugs || [];
+
+    const { data: votes, error: votesErr } = await supabaseClient
+      .from('suggestion_votes')
+      .select('suggestion_id')
+      .eq('voter_id', VOTER_ID);
+    if (votesErr) throw votesErr;
+    myVotes = new Set((votes || []).map(v => v.suggestion_id));
+
+    renderList();
+  } catch (e) {
+    console.error('Failed to load suggestions:', e);
+    document.getElementById('suggestion-list').innerHTML =
+      '<div class="suggestion-list-empty">Couldn\'t load suggestions right now. Refresh to try again.</div>';
+  }
+}
+
+// ============================================================
+// RENDER THE LIST
+// ============================================================
+function renderList() {
+  const listEl = document.getElementById('suggestion-list');
+  const footerEl = document.getElementById('suggestion-list-footer');
+  const seeMoreCount = document.getElementById('see-more-count');
+
+  if (!suggestions.length) {
+    listEl.innerHTML = '<div class="suggestion-list-empty">No suggestions yet. Be the first.</div>';
+    footerEl.style.display = 'none';
+    return;
+  }
+
+  // Sort
+  const sorted = [...suggestions].sort((a, b) => {
+    if (sortMode === 'upvotes') {
+      if (b.upvotes !== a.upvotes) return b.upvotes - a.upvotes;
+      return new Date(b.created_at) - new Date(a.created_at);
+    } else {
+      return new Date(b.created_at) - new Date(a.created_at);
+    }
+  });
+
+  // Slice for collapsed view
+  const visible = expanded ? sorted : sorted.slice(0, COLLAPSED_LIMIT);
+
+  listEl.innerHTML = visible.map(s => {
+    const voted = myVotes.has(s.id);
+    const ago = relativeTime(s.created_at);
+    return `
+      <div class="suggestion-card">
+        <div>
+          <p class="suggestion-text">${escapeHtml(s.text)}</p>
+          <div class="suggestion-meta">added ${ago}</div>
+        </div>
+        <button class="upvote-btn ${voted ? 'voted' : ''}" onclick="toggleUpvote('${s.id}')" aria-label="${voted ? 'Remove upvote' : 'Upvote'}">
+          <span class="upvote-arrow">▲</span>
+          <span class="upvote-count">${s.upvotes}</span>
+        </button>
+      </div>
+    `;
+  }).join('');
+
+  // Footer (see more / see less)
+  if (sorted.length > COLLAPSED_LIMIT) {
+    footerEl.style.display = 'block';
+    if (expanded) {
+      document.getElementById('see-more-btn').innerHTML = 'See less ↑';
+    } else {
+      seeMoreCount.textContent = sorted.length;
+      document.getElementById('see-more-btn').innerHTML = `See all <span id="see-more-count">${sorted.length}</span> →`;
+    }
+  } else {
+    footerEl.style.display = 'none';
+  }
+}
+
+// ============================================================
+// UPVOTE / UN-UPVOTE
+// ============================================================
+async function toggleUpvote(suggestionId) {
+  const sug = suggestions.find(s => s.id === suggestionId);
+  if (!sug) return;
+
+  const wasVoted = myVotes.has(suggestionId);
+
+  // Optimistic update
+  if (wasVoted) {
+    myVotes.delete(suggestionId);
+    sug.upvotes = Math.max(0, sug.upvotes - 1);
+  } else {
+    myVotes.add(suggestionId);
+    sug.upvotes += 1;
+  }
+  renderList();
+
+  try {
+    const fnName = wasVoted ? 'remove_suggestion_vote' : 'cast_suggestion_vote';
+    const { data, error } = await supabaseClient.rpc(fnName, {
+      p_suggestion_id: suggestionId,
+      p_voter_id: VOTER_ID,
+    });
+    if (error) throw error;
+    // Sync the count to whatever the server says (handles concurrent voting)
+    if (typeof data === 'number') {
+      sug.upvotes = data;
+      renderList();
+    }
+  } catch (e) {
+    console.error('Vote failed:', e);
+    // Roll back optimistic update
+    if (wasVoted) {
+      myVotes.add(suggestionId);
+      sug.upvotes += 1;
+    } else {
+      myVotes.delete(suggestionId);
+      sug.upvotes = Math.max(0, sug.upvotes - 1);
+    }
+    renderList();
+  }
+}
+
+// ============================================================
+// SORT TOGGLE
+// ============================================================
+function setSort(mode) {
+  sortMode = mode;
+  document.querySelectorAll('.sort-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.sort === mode);
+  });
+  renderList();
+}
+
+// ============================================================
+// EXPAND / COLLAPSE
+// ============================================================
+function toggleExpanded() {
+  expanded = !expanded;
+  renderList();
+  if (!expanded) {
+    document.getElementById('suggestion-list-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+// ============================================================
+// HELPERS
+// ============================================================
+function escapeHtml(s) {
+  if (s == null) return '';
+  const div = document.createElement('div');
+  div.textContent = String(s);
+  return div.innerHTML;
+}
+
+function relativeTime(iso) {
+  const d = new Date(iso);
+  const now = new Date();
+  const diff = (now - d) / 1000; // seconds
+  if (diff < 60) return 'just now';
+  if (diff < 3600) return Math.floor(diff / 60) + ' min ago';
+  if (diff < 86400) return Math.floor(diff / 3600) + ' h ago';
+  if (diff < 2592000) return Math.floor(diff / 86400) + ' d ago';
+  return d.toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+// ============================================================
+// INIT
+// ============================================================
+loadSuggestions();
 </script>
 
 </body>
