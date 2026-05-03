@@ -569,7 +569,6 @@ let myVotes = {};         // { statement_id: 'agree' | 'disagree' | 'pass' }
 let allVotes = [];        // every vote in the round (for cluster map and bridging)
 let participantCount = 0;
 let totalVotes = 0;
-let currentStatementIdx = 0;
 
 // ============================================================
 // DATA FETCHING
@@ -628,12 +627,9 @@ async function loadAllVotes() {
 }
 
 async function ensureParticipantExists() {
-  // Insert this participant if they're not already in the table.
-  // This is best-effort; if it fails (e.g. they're already there) we don't care.
   await supabaseClient
     .from('participants')
-    .insert({ id: PARTICIPANT_ID, round_id: ROUND_ID })
-    .select();
+    .upsert({ id: PARTICIPANT_ID, round_id: ROUND_ID }, { onConflict: 'id' });
 }
 
 async function castVote(statementId, choice) {
@@ -646,16 +642,14 @@ async function castVote(statementId, choice) {
 
   const { error } = await supabaseClient
     .from('votes')
-    .insert({
+    .upsert({
       round_id: ROUND_ID,
       participant_id: PARTICIPANT_ID,
       statement_id: statementId,
       choice: choice,
-    });
+    }, { onConflict: 'participant_id,statement_id' });
   if (error) {
     console.error('Vote failed:', error);
-    // Could show an error toast here. For v1.1 we just silently fail
-    // and let the next refresh correct any drift.
   }
 }
 
@@ -763,7 +757,7 @@ function renderStatement() {
     return;
   }
 
-  const stmt = pool[currentStatementIdx % pool.length];
+  const stmt = pool[0];
   card.innerHTML = `
     <div class="statement-meta">
       <span>Statement ${myVoteCount + 1}</span>
@@ -783,7 +777,6 @@ function renderStatement() {
       // Disable all buttons immediately
       card.querySelectorAll('button').forEach(b => b.disabled = true);
       await castVote(id, choice);
-      currentStatementIdx++;
       renderAll();
     });
   });
