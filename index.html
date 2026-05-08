@@ -94,6 +94,28 @@ body {
 }
 .hero-pitch strong { font-weight: 700; color: var(--rust); }
 
+/* Editorial inline links — used in body prose, distinct from masthead/CTA links */
+a.inline-link {
+  color: inherit;
+  text-decoration: none;
+  font-weight: 700;
+  border-bottom: 1.5px solid var(--rust);
+  padding-bottom: 1px;
+  transition: background 0.15s, color 0.15s;
+}
+a.inline-link:hover {
+  background: var(--rust);
+  color: var(--paper);
+}
+a.inline-link::after {
+  content: " ↗";
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75em;
+  opacity: 0.6;
+  font-weight: 400;
+  margin-left: 1px;
+}
+
 /* Hero illustration */
 .hero-illo {
   position: absolute;
@@ -341,6 +363,337 @@ h2.section-title em { font-style: italic; color: var(--rust); }
   content: "“"; position: absolute; left: 50%; top: -32px; transform: translateX(-50%);
   font-size: 80px; background: var(--paper); padding: 0 16px; line-height: 1;
   color: var(--rust); font-style: normal;
+}
+
+/* ============ METHOD STAGES (four-stage breakdown) ============ */
+.method-block {
+  margin: 80px 0;
+  border: 2px solid var(--line);
+  background: var(--paper);
+}
+.method-header {
+  padding: 24px 32px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.method-header h3 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-weight: 700;
+}
+.method-header .method-sub {
+  font-size: 14px;
+  font-style: italic;
+  opacity: 0.7;
+  max-width: 620px;
+}
+.method-stages {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  position: relative;
+}
+.method-stage {
+  padding: 32px 28px 36px;
+  border-right: 1px solid var(--line);
+  position: relative;
+  background: var(--paper);
+}
+.method-stage:last-child { border-right: none; }
+.method-stage.is-polis {
+  background: var(--paper-deep);
+}
+.method-stage.is-polis::before {
+  content: "↑ THIS IS WHERE POL.IS SITS";
+  position: absolute;
+  top: -24px;
+  left: 28px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--rust);
+  letter-spacing: 0.12em;
+  background: var(--paper);
+  padding: 4px 8px;
+  border: 1px solid var(--rust);
+}
+.method-stage .stage-num {
+  font-family: 'Fraunces', serif;
+  font-size: 48px;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--rust);
+  margin-bottom: 4px;
+}
+.method-stage.is-polis .stage-num { color: var(--rust); }
+.method-stage .stage-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.method-stage .stage-mode {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.5;
+  margin-bottom: 16px;
+}
+.method-stage .stage-desc {
+  font-size: 13px;
+  line-height: 1.55;
+  margin-bottom: 14px;
+}
+.method-stage .stage-desc strong { font-weight: 700; }
+.method-stage .stage-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+}
+.method-stage .stage-list li {
+  font-size: 12px;
+  line-height: 1.5;
+  padding: 4px 0 4px 16px;
+  position: relative;
+}
+.method-stage .stage-list li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--rust);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+}
+.method-footer {
+  padding: 16px 32px;
+  border-top: 1px solid var(--line);
+  background: var(--ink);
+  color: var(--paper);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.method-footer .ochre { color: var(--ochre); }
+
+/* ============ TAX ROUND SECTION ============ */
+.tax-section {
+  background: var(--paper);
+  position: relative;
+  padding: 0;
+  border-bottom: 2px solid var(--line);
+}
+.tax-banner {
+  background: var(--rust);
+  color: var(--paper);
+  padding: 14px 32px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.tax-banner .pulse {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--ochre);
+  display: inline-block;
+  margin-right: 8px;
+  animation: pulse 1.6s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+.tax-inner {
+  max-width: 1400px; margin: 0 auto;
+  padding: 80px 32px 32px;
+}
+.tax-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  margin-bottom: 60px;
+  align-items: start;
+}
+.tax-question-card {
+  border: 2px solid var(--line);
+  background: var(--paper-deep);
+  padding: 32px;
+}
+.tax-question-card .qlabel {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 16px;
+  color: var(--rust);
+}
+.tax-question-card .qbody {
+  font-size: 26px;
+  line-height: 1.3;
+  font-weight: 300;
+  font-style: italic;
+}
+.tax-question-card .qbody strong { font-style: normal; font-weight: 700; }
+.tax-stakeholders {
+  border: 1px solid var(--line);
+  padding: 24px;
+  background: var(--paper);
+}
+.tax-stakeholders h4 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 16px;
+}
+.tax-stakeholder-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 16px;
+}
+.tax-stakeholder-list div {
+  font-size: 13px;
+  padding: 6px 0;
+  border-bottom: 1px dotted var(--line);
+}
+.tax-stakeholder-list div::before {
+  content: "·";
+  color: var(--rust);
+  margin-right: 6px;
+  font-weight: 700;
+}
+
+/* The pol.is embed frame */
+.polis-frame {
+  border: 2px solid var(--line);
+  background: var(--paper-deep);
+  padding: 0;
+  position: relative;
+  margin: 60px 0;
+}
+.polis-frame-header {
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  background: var(--paper);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.polis-frame-header .live-dot {
+  display: inline-block;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--rust);
+  margin-right: 8px;
+  vertical-align: middle;
+  animation: pulse 1.6s ease-in-out infinite;
+}
+.polis-iframe-wrap {
+  width: 100%;
+  min-height: 720px;
+  background: var(--paper);
+  position: relative;
+}
+.polis-iframe-wrap iframe {
+  width: 100%;
+  height: 720px;
+  border: none;
+  display: block;
+}
+.polis-fallback {
+  padding: 60px 32px;
+  text-align: center;
+  font-size: 14px;
+  font-style: italic;
+  opacity: 0.7;
+  display: none;
+}
+.polis-frame-footer {
+  padding: 12px 24px;
+  border-top: 1px solid var(--line);
+  background: var(--paper);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* What happens next strip */
+.tax-next {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 2px solid var(--line);
+  border-bottom: 2px solid var(--line);
+  margin-top: 40px;
+}
+.tax-next-step {
+  padding: 24px;
+  border-right: 1px solid var(--line);
+}
+.tax-next-step:last-child { border-right: none; }
+.tax-next-step .step-n {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: var(--rust);
+  margin-bottom: 8px;
+}
+.tax-next-step h5 {
+  font-family: 'Fraunces', serif;
+  font-size: 18px;
+  font-weight: 400;
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+.tax-next-step p {
+  font-size: 12px;
+  line-height: 1.5;
+  opacity: 0.8;
+}
+
+@media (max-width: 900px) {
+  .method-stages { grid-template-columns: 1fr 1fr; }
+  .method-stage { border-right: none; border-bottom: 1px solid var(--line); }
+  .method-stage:nth-child(2n) { border-right: none; }
+  .method-stage:nth-child(odd) { border-right: 1px solid var(--line); }
+  .tax-grid { grid-template-columns: 1fr; gap: 32px; }
+  .tax-next { grid-template-columns: 1fr 1fr; }
+  .tax-next-step:nth-child(2n) { border-right: none; }
+  .tax-stakeholder-list { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .method-stages { grid-template-columns: 1fr; }
+  .method-stage { border-right: none !important; border-bottom: 1px solid var(--line); }
+  .tax-next { grid-template-columns: 1fr; }
+  .tax-next-step { border-right: none; border-bottom: 1px solid var(--line); }
 }
 
 /* ============ VENUE SUGGESTION ============ */
@@ -772,7 +1125,9 @@ footer {
   <nav>
     <a href="#why">Why</a>
     <a href="#taiwan">Taiwan</a>
-    <a href="vaustralia.html" style="color: var(--rust); border-bottom-color: var(--rust);">vAustralia ↗</a>
+    <a href="#method">Method</a>
+    <a href="#tax-round" style="color: var(--rust); border-bottom-color: var(--rust);">Tax Round ↗</a>
+    <a href="vaustralia.html">vAustralia</a>
     <a href="#roadmap">Roadmap</a>
     <a href="#follow">Follow</a>
   </nav>
@@ -823,7 +1178,7 @@ footer {
     </div>
     <div>
       <p class="hero-pitch">
-        The Ministry of the Future is a project testing whether <strong>vAustralia</strong>, an adaptation of <strong>Polis</strong>, could help Australians think together about what this country should become. Polis is the deliberation tool used by <strong>vTaiwan</strong> to resolve real political deadlocks in Taipei. We're running a dry run. You're invited to try it.
+        The Ministry of the Future is a project testing whether <a href="vaustralia.html" class="inline-link">vAustralia</a>, an adaptation of <a href="https://pol.is" target="_blank" rel="noopener" class="inline-link">Polis</a>, could help Australians think together about what this country should become. Polis is the deliberation tool used by <a href="https://vtaiwan.tw/" target="_blank" rel="noopener" class="inline-link">vTaiwan</a> to resolve real political deadlocks in Taipei. We're running a dry run. You're invited to try it.
       </p>
     </div>
   </div>
@@ -937,7 +1292,7 @@ footer {
         Australia is, for now, an unusual exception. A record 74% of Australians say democracy is preferable to any other form of government, the highest figure the Lowy Institute has ever recorded. But 70% also believe social media is making democracy worse, and trust in our political parties has been in long decline.<sup style="color: var(--ochre);"><a href="https://poll.lowyinstitute.org/report/2025/" style="color: var(--ochre); text-decoration: none;">2</a></sup> We are holding the line. But we're holding it on infrastructure that was built before the internet, and we're holding it while every other comparable country slides past us in the wrong direction.
       </p>
       <p>
-        The same digital tools that have hollowed out public discourse over the past two decades can be turned the other way. <strong>Polis</strong>, the deliberation method developed by a Seattle team and famously deployed by Audrey Tang's team in Taiwan, has been used to resolve legislative deadlocks across more than a dozen countries, from Uber regulation in Taipei to climate policy in Austria, fintech rules in Britain, and a constitutional consultation for an AI system. The pattern in every case is the same. People who appeared to be at war with each other turned out to share more than the loudest voices suggested. The tool found the agreement that the noise was hiding.
+        The same digital tools that have hollowed out public discourse over the past two decades can be turned the other way. <a href="https://pol.is" target="_blank" rel="noopener" class="inline-link">Polis</a>, the deliberation method developed by a Seattle team and famously deployed by Audrey Tang's team in Taiwan, has been used to resolve legislative deadlocks across more than a dozen countries, from Uber regulation in Taipei to climate policy in Austria, fintech rules in Britain, and a constitutional consultation for an AI system. The pattern in every case is the same. People who appeared to be at war with each other turned out to share more than the loudest voices suggested. The tool found the agreement that the noise was hiding.
       </p>
       <p style="border-top: 1px solid rgba(243, 237, 224, 0.25); padding-top: 16px; margin-top: 8px; font-size: 12px; font-family: 'JetBrains Mono', monospace; opacity: 0.6; line-height: 1.6;">
         <span style="color: var(--ochre);">1.</span> V&#8209;Dem Institute, <em>Democracy Report 2026: Unraveling the Democratic Era?</em>, University of Gothenburg, 2026. &nbsp;&nbsp; <span style="color: var(--ochre);">2.</span> Lowy Institute Poll 2025, Sydney, June 2025.
@@ -1105,6 +1460,79 @@ footer {
       <p class="diagram-caption" style="text-align:center;margin-top:8px;">
         Polis is one stage of four. The platform handles the opinion-mapping. Humans, facilitators, stakeholders, civil servants, handle everything else. The Ministry of the Future is our version of the human work around the tool.
       </p>
+    </div>
+
+    <!-- ============ METHOD: FOUR STAGES UNPACKED ============ -->
+    <div class="method-block" id="method">
+      <div class="method-header">
+        <h3>Fig. 03 · The four stages, unpacked</h3>
+        <p class="method-sub">vTaiwan separates the work into four discrete stages, each with its own tools, participants, and outputs. Pol.is is one stage of four. The rest is human work — and most of it isn't online.</p>
+      </div>
+
+      <div class="method-stages">
+
+        <!-- Stage 01: Proposal -->
+        <div class="method-stage">
+          <div class="stage-num">01</div>
+          <div class="stage-name">Proposal</div>
+          <div class="stage-mode">offline · weekly</div>
+          <p class="stage-desc">A government agency agrees to be <strong>accountable</strong> for an issue. A facilitator takes charge. The community maps stakeholders and gathers facts.</p>
+          <ul class="stage-list">
+            <li>g0v Wednesday mini-hackathons</li>
+            <li>Stakeholder discovery</li>
+            <li>Background documents and an open dictionary of terms</li>
+            <li>Rolling questionnaires sent through stakeholder networks</li>
+          </ul>
+        </div>
+
+        <!-- Stage 02: Opinion (Polis) -->
+        <div class="method-stage is-polis">
+          <div class="stage-num">02</div>
+          <div class="stage-name">Opinion</div>
+          <div class="stage-mode">online · ~1 month</div>
+          <p class="stage-desc">Participants <strong>vote, propose, and cluster</strong>. The algorithm finds the bridging statements — the ideas both camps can live with — and demotes the divisive ones.</p>
+          <ul class="stage-list">
+            <li>Pol.is for opinion mapping and clustering</li>
+            <li>Discourse for tagged Q&amp;A; ministries reply within 7 days</li>
+            <li>Anyone can join — not just citizens, not just residents</li>
+            <li>Outputs: a raw report and a curated second-hand report</li>
+          </ul>
+        </div>
+
+        <!-- Stage 03: Reflection -->
+        <div class="method-stage">
+          <div class="stage-num">03</div>
+          <div class="stage-name">Reflection</div>
+          <div class="stage-mode">offline · live-streamed</div>
+          <p class="stage-desc">A face-to-face consultation with the stakeholders the bridging map surfaced. Live-streamed on YouTube; the chat feeds the room. Reports become the record.</p>
+          <ul class="stage-list">
+            <li>Pre-meeting between facilitator and the agency</li>
+            <li>Stakeholder presentations + facilitator's real-time digital notes</li>
+            <li>Public livestream with chat curated into the discussion</li>
+            <li>Transcript becomes the input to ratification</li>
+          </ul>
+        </div>
+
+        <!-- Stage 04: Ratification -->
+        <div class="method-stage">
+          <div class="stage-num">04</div>
+          <div class="stage-name">Ratification</div>
+          <div class="stage-mode">offline · final</div>
+          <p class="stage-desc">The agency formalises a <strong>"rough consensus"</strong>: a guideline, a policy statement, or a draft bill. If they decline, they must say why, point by point.</p>
+          <ul class="stage-list">
+            <li>Community + agency review the full record</li>
+            <li>Outcomes: regulation, guideline, or reasoned rejection</li>
+            <li>Each ministry has a Participation Officer (since 2017) responsible for the response</li>
+            <li>~80% of vTaiwan rounds have led to government action</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="method-footer">
+        <span><span class="ochre">Source ·</span> The GovLab, <em>CrowdLaw for Congress: vTaiwan</em>, 2020 · with Audrey Tang &amp; PDIS Taiwan</span>
+        <span>~80% acted on since 2015</span>
+      </div>
     </div>
 
     <!-- ============ CASE STUDIES ============ -->
@@ -1335,6 +1763,139 @@ footer {
   </div>
 </section>
 
+<!-- ============ TAX ROUND (FIELD NOTES / 03) ============ -->
+<section class="tax-section" id="tax-round">
+  <div class="tax-banner">
+    <span><span class="pulse"></span>Live · Field Notes / 03</span>
+    <span>Round 02 · Wealth &amp; intergenerational fairness</span>
+    <span>Hosted on pol.is, embedded here</span>
+  </div>
+
+  <div class="tax-inner">
+
+    <span class="section-tag">The tax round</span>
+    <h2 class="section-title">A real question,<br>asked the <em>Taiwan way</em>.</h2>
+
+    <p class="lede">
+      In partnership with the Australian network of the <strong>School of Moral Ambition</strong>, we're running a vTaiwan-style round on one of the most chronically deadlocked questions in Australian politics: how this country taxes wealth, capital, and intergenerational transfers. This is exactly the kind of fight the bridging method was built for — many camps, decades of stalemate, and a quiet majority that probably agrees on more than the loudest voices suggest.
+    </p>
+
+    <!-- The question + stakeholder fault lines -->
+    <div class="tax-grid">
+
+      <div class="tax-question-card">
+        <div class="qlabel">The question · Round 02</div>
+        <div class="qbody">
+          How should Australia tax <strong>wealth, capital, and intergenerational transfers</strong> over the next decade?
+        </div>
+        <p style="font-size: 13px; line-height: 1.55; margin-top: 24px; opacity: 0.8;">
+          Scoped narrowly, on purpose. Taiwan's Uber round didn't ask "what's the future of transport." It asked one question with clear stakeholders. A cluster map only finds bridges when the disagreement is specific.
+        </p>
+      </div>
+
+      <div class="tax-stakeholders">
+        <h4>↳ Likely fault lines</h4>
+        <div class="tax-stakeholder-list">
+          <div>Asset-holders nearing retirement</div>
+          <div>Renters under 40</div>
+          <div>Small business owners</div>
+          <div>Self-funded retirees</div>
+          <div>First home buyers</div>
+          <div>Property investors</div>
+          <div>Wage-earners on PAYG</div>
+          <div>Inheritors &amp; would-be inheritors</div>
+          <div>Super fund members</div>
+          <div>Public servants &amp; treasury staff</div>
+          <div>Economists across the spectrum</div>
+          <div>Anyone who's been told "wait your turn"</div>
+        </div>
+        <p style="font-size: 12px; line-height: 1.5; margin-top: 20px; font-style: italic; opacity: 0.7;">
+          Pol.is doesn't ask you to pick a camp. It works out which one you're in from how you vote, then looks for what crosses between them.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- The actual pol.is embed -->
+    <div class="polis-frame">
+      <div class="polis-frame-header">
+        <span><span class="live-dot"></span>Live conversation · pol.is</span>
+        <span>Anonymous · No signup · ~5 min</span>
+      </div>
+
+      <div class="polis-iframe-wrap">
+        <!--
+          ╭─ POL.IS EMBED ─────────────────────────────────────────╮
+          │ Live conversation: pol.is/4fy4fjkseu                   │
+          │                                                        │
+          │ ⚠ IMPORTANT: pol.is conversations are domain-locked    │
+          │   by default. To make this embed render, you must add  │
+          │   meghladon.github.io to the whitelist in pol.is:      │
+          │     1. pol.is admin → Configure → "Embed"              │
+          │     2. Add domains:                                    │
+          │          meghladon.github.io                           │
+          │          localhost (for testing)                       │
+          │     3. Save                                            │
+          ╰────────────────────────────────────────────────────────╯
+        -->
+        <div class="polis"
+             data-conversation_id="4fy4fjkseu"
+             data-ucsh="false"
+             data-ucst="false"
+             data-ucsv="false"
+             data-ucsf="false"
+             data-ui_lang="en"
+             data-show_vis="true"
+             data-bg_white="true">
+        </div>
+        <script async src="https://pol.is/embed.js"></script>
+
+        <!-- Fallback shown only if the iframe doesn't load (e.g., during demo prep before ID is set) -->
+        <div class="polis-fallback" id="polis-fallback">
+          <p>The conversation will load here once the pol.is conversation ID is set.<br>
+          For now, the embed code is in place and ready.</p>
+        </div>
+      </div>
+
+      <div class="polis-frame-footer">
+        <span>Methodology · vTaiwan, since 2015</span>
+        <span><a href="https://pol.is" style="color: var(--ink);">pol.is ↗</a> · <a href="https://compdemocracy.org" style="color: var(--ink);">Computational Democracy Project ↗</a></span>
+      </div>
+    </div>
+
+    <!-- What participants are doing, and what happens next -->
+    <h3 style="font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 24px;">↳ What you're doing right now, and what happens after</h3>
+
+    <div class="tax-next">
+      <div class="tax-next-step">
+        <div class="step-n">Step 01 · You</div>
+        <h5>Vote &amp; propose</h5>
+        <p>Agree, disagree, or pass on each statement. Add your own. The algorithm sorts everyone into opinion clusters and finds what bridges them.</p>
+      </div>
+      <div class="tax-next-step">
+        <div class="step-n">Step 02 · Pol.is</div>
+        <h5>Cluster &amp; bridge</h5>
+        <p>Real-time PCA + k-means. The map updates as votes come in. Statements that earn agreement across all clusters get surfaced; divisive ones get demoted.</p>
+      </div>
+      <div class="tax-next-step">
+        <div class="step-n">Step 03 · Conference</div>
+        <h5>Reflection</h5>
+        <p>The bridging statements go into a face-to-face session at the School of Moral Ambition tax reform conference. Stakeholders, economists, public servants, in one room.</p>
+      </div>
+      <div class="tax-next-step">
+        <div class="step-n">Step 04 · Output</div>
+        <h5>Public report</h5>
+        <p>A raw report and a curated read-back, published openly. A statement of where the bridges are, what the room agreed to, and what's still contested.</p>
+      </div>
+    </div>
+
+    <p class="pullquote" style="margin-top: 80px;">
+      Tax is supposed to be the topic that breaks deliberation. It's polarised, it's technical, it's tied up with identity and class. That's exactly the kind of question Taiwan's bridging method earned its reputation on. We don't know if it will work here. That's what the round is for.
+    </p>
+
+  </div>
+</section>
+
 <!-- ============ ROADMAP ============ -->
 <section class="venues" id="roadmap">
   <div class="section-inner">
@@ -1379,11 +1940,18 @@ footer {
               <p>A concentric-circle map of the Australian civic-tech and deliberative-democracy ecosystem: who's already doing this work, who could be allies, who sets the context.</p>
             </div>
           </li>
-          <li class="roadmap-item done current">
+          <li class="roadmap-item done">
             <span class="roadmap-marker">05</span>
             <div>
               <strong>vAustralia v1.1: the dry run</strong>
-              <p>The current round. One earnest question, five seed statements, fully anonymous, single-round Polis-faithful. Live now. Testing whether the tool resonates.</p>
+              <p>The first earnest round. One question, five seed statements, fully anonymous, single-round Polis-faithful. Tested whether the tool resonates at small scale.</p>
+            </div>
+          </li>
+          <li class="roadmap-item done current">
+            <span class="roadmap-marker">06</span>
+            <div>
+              <strong>Round 02: wealth &amp; intergenerational fairness <span style="color: var(--rust); font-style: italic;">→ live</span></strong>
+              <p>Running on hosted pol.is, embedded above. In partnership with the Australian network of the School of Moral Ambition. The first real-stakes round, on the most chronically deadlocked policy question in Australian politics.</p>
             </div>
           </li>
         </ol>
@@ -1403,8 +1971,8 @@ footer {
           <li class="roadmap-item next">
             <span class="roadmap-marker">→</span>
             <div>
-              <strong>A trial at a tax reform conference</strong>
-              <p>We're in early conversations with the Australian network of the <a href="https://www.schoolformoralambition.com/" target="_blank" rel="noopener">School of Moral Ambition</a> about trialling vAustralia at a tax reform policy conference later this year. Tax reform is one of the most chronically deadlocked policy areas in Australian politics. Exactly the kind of place where the bridging method earned its reputation in Taiwan.</p>
+              <strong>Round 02 → reflection &amp; ratification</strong>
+              <p>Once Round 02 closes, the bridging statements go to a face-to-face session at the School of Moral Ambition tax reform conference. The output is a public report — what the room agreed to, what's still contested, and what should happen next. Stages 03 and 04 of the Taiwan method, applied here.</p>
             </div>
           </li>
         </ol>
