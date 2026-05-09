@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo · The Ministry of the Future</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,700;9..144,900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1a1814;
+  --paper: #f3ede0;
+  --paper-deep: #e8dfc9;
+  --rust: #b8451f;
+  --ochre: #c98a2b;
+  --sage: #5c6b4a;
+  --slate: #2c3e4a;
+  --line: #1a1814;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Fraunces', Georgia, serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.5;
+  font-feature-settings: "ss01", "ss02";
+  overflow-x: hidden;
+}
+.mono { font-family: 'JetBrains Mono', monospace; font-weight: 500; letter-spacing: -0.01em; }
+.grain {
+  position: fixed; inset: 0; pointer-events: none; z-index: 100; opacity: 0.08;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ============ MASTHEAD ============ */
+.masthead {
+  border-bottom: 2px solid var(--line);
+  padding: 14px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: var(--paper);
+  position: sticky; top: 0; z-index: 50;
+}
+.masthead nav { display: flex; gap: 24px; }
+.masthead a { color: var(--ink); text-decoration: none; border-bottom: 1px solid transparent; padding-bottom: 2px; }
+.masthead a:hover { border-bottom-color: var(--rust); }
+.masthead a.active { color: var(--rust); border-bottom-color: var(--rust); }
+
+/* ============ DEMO BANNER ============ */
+.demo-banner {
+  background: var(--ochre);
+  color: var(--ink);
+  padding: 14px 32px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  border-bottom: 2px solid var(--line);
+}
+.demo-banner .pulse {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--rust);
+  display: inline-block;
+  margin-right: 8px;
+  animation: pulse 1.6s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+
+/* ============ HERO ============ */
+.demo-hero {
+  padding: 80px 32px 40px;
+  border-bottom: 2px solid var(--line);
+  position: relative;
+  overflow: hidden;
+}
+.demo-hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 60px;
+  align-items: end;
+}
+.demo-hero h1 {
+  font-size: clamp(48px, 7vw, 96px);
+  line-height: 0.92;
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  margin-bottom: 24px;
+}
+.demo-hero h1 em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--rust);
+}
+.demo-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+  display: flex; gap: 32px; flex-wrap: wrap;
+}
+.demo-pitch {
+  font-size: 18px;
+  line-height: 1.55;
+  border-left: 2px solid var(--line);
+  padding: 8px 0 8px 24px;
+  max-width: 420px;
+}
+.demo-pitch strong { font-weight: 700; color: var(--rust); }
+.demo-pitch a {
+  color: inherit;
+  text-decoration: none;
+  font-weight: 700;
+  border-bottom: 1.5px solid var(--rust);
+  padding-bottom: 1px;
+}
+
+/* ============ HOW IT WORKS — quick three-step ============ */
+.how-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-bottom: 2px solid var(--line);
+  background: var(--paper-deep);
+}
+.how-step {
+  padding: 32px 28px;
+  border-right: 1px solid var(--line);
+}
+.how-step:last-child { border-right: none; }
+.how-step .step-n {
+  font-family: 'Fraunces', serif;
+  font-size: 40px;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--rust);
+  margin-bottom: 8px;
+}
+.how-step h4 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.how-step p {
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+/* ============ EMBED SECTION ============ */
+.embed-section {
+  padding: 64px 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.embed-section .section-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  display: inline-block;
+  padding: 4px 12px;
+  border: 1px solid var(--line);
+  margin-bottom: 24px;
+}
+.embed-section h2 {
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+  margin-bottom: 24px;
+}
+.embed-section h2 em { font-style: italic; color: var(--rust); }
+.embed-section .lede {
+  font-size: 18px;
+  line-height: 1.5;
+  max-width: 720px;
+  margin-bottom: 40px;
+  font-weight: 300;
+}
+
+/* The pol.is embed frame */
+.polis-frame {
+  border: 2px solid var(--line);
+  background: var(--paper-deep);
+  position: relative;
+  margin: 0 0 40px;
+}
+.polis-frame-header {
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  background: var(--paper);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.polis-frame-header .live-dot {
+  display: inline-block;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--rust);
+  margin-right: 8px;
+  vertical-align: middle;
+  animation: pulse 1.6s ease-in-out infinite;
+}
+.polis-iframe-wrap {
+  width: 100%;
+  min-height: 720px;
+  background: var(--paper);
+}
+.polis-iframe-wrap iframe {
+  width: 100%;
+  height: 720px;
+  border: none;
+  display: block;
+}
+.polis-frame-footer {
+  padding: 12px 24px;
+  border-top: 1px solid var(--line);
+  background: var(--paper);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.polis-frame-footer a { color: var(--ink); }
+
+/* ============ TIPS BLOCK ============ */
+.tips {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 48px 32px;
+  border-top: 2px solid var(--line);
+}
+.tips-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.tips h3 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 24px;
+  color: var(--ochre);
+}
+.tips ul {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+.tips li {
+  font-size: 15px;
+  line-height: 1.55;
+  padding-left: 24px;
+  position: relative;
+}
+.tips li::before {
+  content: "↳";
+  position: absolute;
+  left: 0;
+  color: var(--ochre);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ============ FOOTER ============ */
+.demo-footer {
+  padding: 32px;
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  opacity: 0.6;
+}
+.demo-footer a { color: var(--ink); border-bottom: 1px solid var(--rust); text-decoration: none; padding-bottom: 1px; }
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 900px) {
+  .demo-hero-inner { grid-template-columns: 1fr; gap: 32px; }
+  .how-strip { grid-template-columns: 1fr; }
+  .how-step { border-right: none; border-bottom: 1px solid var(--line); }
+  .how-step:last-child { border-bottom: none; }
+  .tips ul { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .masthead { padding: 12px 20px; }
+  .masthead nav { gap: 14px; }
+  .demo-hero { padding: 48px 20px 32px; }
+  .embed-section { padding: 48px 20px; }
+  .demo-banner { padding: 12px 20px; font-size: 10px; }
+}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<header class="masthead">
+  <div>The Ministry of the Future <span style="opacity:0.5;">⟶</span> AU</div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="index.html#taiwan">Taiwan</a>
+    <a href="index.html#tax-round">Tax Round</a>
+    <a href="demo.html" class="active">Demo ↗</a>
+  </nav>
+</header>
+
+<div class="demo-banner">
+  <span><span class="pulse"></span>Live demo · Round 03</span>
+  <span>Try Polis without committing to politics</span>
+  <span>~3 min · No signup</span>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="demo-hero">
+  <div class="demo-hero-inner">
+    <div>
+      <h1>What rules<br>should govern<br>a <em>shared house?</em></h1>
+      <div class="demo-meta">
+        <span>Round 03 · The shared-house round</span>
+        <span>Hosted on pol.is, embedded here</span>
+      </div>
+    </div>
+    <div class="demo-pitch">
+      A live demo of <a href="https://pol.is" target="_blank" rel="noopener">Polis</a>, the deliberation tool used by <a href="https://vtaiwan.tw/" target="_blank" rel="noopener">vTaiwan</a> in Taiwan. Same method, lower stakes. Vote on each statement. Watch the cluster map fill up. See whether the room agrees on more than it thinks. <strong>This is the same tool we're using on tax reform — just gentler.</strong>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<div class="how-strip">
+  <div class="how-step">
+    <div class="step-n">01</div>
+    <h4>Vote</h4>
+    <p>Agree, disagree, or pass on each statement. There's no wrong answer. Pass is fine. Skip is fine. Honesty matters more than coverage.</p>
+  </div>
+  <div class="how-step">
+    <div class="step-n">02</div>
+    <h4>Add your own</h4>
+    <p>Write a statement. Something you've quietly believed for years. Something you think the room would agree on if anyone said it out loud.</p>
+  </div>
+  <div class="how-step">
+    <div class="step-n">03</div>
+    <h4>Watch the map</h4>
+    <p>Once enough people have voted, a cluster map appears. Each dot is a participant. Statements both clusters agree with — that's the bridge.</p>
+  </div>
+</div>
+
+<!-- ============ THE EMBED ============ -->
+<section class="embed-section">
+  <span class="section-tag">The conversation</span>
+  <h2>Vote on the rules.<br>Add your <em>own</em>.</h2>
+  <p class="lede">
+    14 starter statements about cleaning, guests, music, partners, parties, and the politics of the shared fridge. Vote on what's there. Add what's missing. The cluster map below fills up as the room votes.
+  </p>
+
+  <div class="polis-frame">
+    <div class="polis-frame-header">
+      <span><span class="live-dot"></span>Live conversation · pol.is</span>
+      <span>Anonymous · ~3 min</span>
+    </div>
+
+    <div class="polis-iframe-wrap">
+      <!--
+        ╭─ POL.IS EMBED ─────────────────────────────────────────╮
+        │ Round 03 · The shared-house demo round                 │
+        │ Live conversation: pol.is/84kdxytsem                   │
+        ╰────────────────────────────────────────────────────────╯
+      -->
+      <div class="polis"
+           data-conversation_id="84kdxytsem"
+           data-ucsh="false"
+           data-ucst="false"
+           data-ucsv="false"
+           data-ucsf="false"
+           data-ui_lang="en"
+           data-show_vis="true"
+           data-bg_white="true">
+      </div>
+      <script async src="https://pol.is/embed.js"></script>
+    </div>
+
+    <div class="polis-frame-footer">
+      <span>Methodology · vTaiwan, since 2015</span>
+      <span><a href="https://pol.is" target="_blank" rel="noopener">pol.is ↗</a> · <a href="index.html#tax-round">See the real tax round →</a></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TIPS / WHY THIS QUESTION ============ -->
+<section class="tips">
+  <div class="tips-inner">
+    <h3>↳ Why a shared-house round, and not the tax one</h3>
+    <ul>
+      <li><strong>The demo is about the method, not the topic.</strong> A technical question about super tax buries what we're trying to show: that an algorithm can find agreement underneath disagreement.</li>
+      <li><strong>Everyone has an instant opinion about housemates.</strong> No expertise required. No "let me think about that" — agreement and disagreement come fast, which is what a small-room cluster map needs.</li>
+      <li><strong>vTaiwan started this way too.</strong> Their first big rounds were Uber and online alcohol sales — concrete, lived experiences with clear stakeholders. Tax came later, once the method had proven itself.</li>
+      <li><strong>The clusters here are real.</strong> Cleanliness vs vibes. Communal vs autonomous. Rules-people vs trust-people. Your cluster map will likely show two or three groups — and the bridges between them are what the room secretly agrees on.</li>
+    </ul>
+    <p style="margin-top: 32px; font-size: 14px; opacity: 0.7; max-width: 720px; line-height: 1.55;">
+      Once you've voted here, take a look at <a href="index.html#tax-round" style="color: var(--ochre); border-bottom: 1px solid var(--ochre); text-decoration: none;">the real round on tax reform →</a>. Same tool, same method, higher stakes. The work the Ministry of the Future is actually trying to do.
+    </p>
+  </div>
+</section>
+
+<footer class="demo-footer">
+  The Ministry of the Future · Australia · Built in public · <a href="index.html">Back to home</a>
+</footer>
+
+</body>
+</html>

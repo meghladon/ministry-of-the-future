@@ -1126,6 +1126,7 @@ footer {
     <a href="#why">Why</a>
     <a href="#taiwan">Taiwan</a>
     <a href="#method">Method</a>
+    <a href="demo.html" style="color: var(--ochre); border-bottom-color: var(--ochre);">Demo ↗</a>
     <a href="#tax-round" style="color: var(--rust); border-bottom-color: var(--rust);">Tax Round ↗</a>
     <a href="#roadmap">Roadmap</a>
     <a href="#follow">Follow</a>
@@ -1727,15 +1728,94 @@ footer {
   </div>
 </section>
 
+<!-- ============ DEMO INVITE (PLAYFUL) ============ -->
+<section style="background: var(--ochre); color: var(--ink); padding: 56px 32px; border-bottom: 2px solid var(--line); position: relative; overflow: hidden;">
+  <!-- Decorative pattern: cluster-style scattered dots -->
+  <svg style="position: absolute; right: -40px; top: -40px; width: 240px; height: 240px; opacity: 0.18; pointer-events: none;" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
+    <g fill="#1a1814">
+      <circle cx="60" cy="80" r="4"/><circle cx="80" cy="65" r="4"/><circle cx="95" cy="90" r="4"/>
+      <circle cx="50" cy="105" r="4"/><circle cx="75" cy="115" r="4"/><circle cx="100" cy="60" r="4"/>
+      <circle cx="160" cy="140" r="4"/><circle cx="180" cy="160" r="4"/><circle cx="170" cy="125" r="4"/>
+      <circle cx="195" cy="145" r="4"/><circle cx="155" cy="170" r="4"/><circle cx="190" cy="120" r="4"/>
+      <circle cx="120" cy="180" r="4"/><circle cx="140" cy="190" r="4"/><circle cx="110" cy="200" r="4"/>
+    </g>
+    <g fill="none" stroke="#1a1814" stroke-width="1" opacity="0.5">
+      <ellipse cx="80" cy="85" rx="40" ry="30" transform="rotate(-15 80 85)"/>
+      <ellipse cx="180" cy="145" rx="38" ry="28" transform="rotate(20 180 145)"/>
+      <ellipse cx="125" cy="190" rx="30" ry="20" transform="rotate(-5 125 190)"/>
+    </g>
+  </svg>
+
+  <div class="section-inner" style="max-width: 1100px; position: relative; z-index: 1;">
+    <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: center;">
+
+      <div>
+        <span class="section-tag" style="border-color: var(--ink); color: var(--ink); background: var(--ochre);">Round 03 · The warm-up</span>
+        <h2 class="section-title" style="margin: 16px 0 20px; font-size: clamp(36px, 5vw, 64px);">
+          First, try it<br>on something <em style="font-style: italic;">silly</em>.
+        </h2>
+        <p style="font-size: 17px; line-height: 1.55; max-width: 480px; margin-bottom: 24px;">
+          Tax reform is heavy. Before the real round below, we made a lighter one — a Polis conversation on the politics of <strong>shared houses</strong>: dishes, guests, the fridge, the chaos of communal living. Same algorithm, same cluster map, same bridging method. Lower stakes. <em>This is the easiest way to feel how Polis works.</em>
+        </p>
+        <a href="demo.html" style="
+          display: inline-block;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 12px;
+          text-transform: uppercase;
+          letter-spacing: 0.12em;
+          background: var(--ink);
+          color: var(--paper);
+          padding: 18px 32px;
+          text-decoration: none;
+          border: 2px solid var(--ink);
+          font-weight: 700;
+          transition: all 0.15s;
+        " onmouseover="this.style.background='var(--rust)';this.style.borderColor='var(--rust)';" onmouseout="this.style.background='var(--ink)';this.style.borderColor='var(--ink)';">
+          Open the demo round →
+        </a>
+        <p style="margin-top: 16px; font-size: 12px; font-style: italic; opacity: 0.7;">
+          ~3 minutes · No signup · 14 starter statements about housemates
+        </p>
+      </div>
+
+      <!-- Sample statements teaser -->
+      <div style="border: 2px solid var(--ink); background: rgba(243, 237, 224, 0.4); padding: 28px;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 16px; opacity: 0.7;">
+          A taste · sample statements
+        </div>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li style="font-size: 15px; line-height: 1.45; padding: 10px 0 10px 22px; position: relative; border-bottom: 1px dotted var(--ink);">
+            <span style="position: absolute; left: 0; font-family: 'JetBrains Mono', monospace; opacity: 0.5;">→</span>
+            Dishes should be done within 24 hours of being used.
+          </li>
+          <li style="font-size: 15px; line-height: 1.45; padding: 10px 0 10px 22px; position: relative; border-bottom: 1px dotted var(--ink);">
+            <span style="position: absolute; left: 0; font-family: 'JetBrains Mono', monospace; opacity: 0.5;">→</span>
+            A house should eat dinner together at least once a week.
+          </li>
+          <li style="font-size: 15px; line-height: 1.45; padding: 10px 0 10px 22px; position: relative; border-bottom: 1px dotted var(--ink);">
+            <span style="position: absolute; left: 0; font-family: 'JetBrains Mono', monospace; opacity: 0.5;">→</span>
+            Cleaning should be done when it needs doing — adults can sense mess.
+          </li>
+          <li style="font-size: 15px; line-height: 1.45; padding: 10px 0 10px 22px; position: relative;">
+            <span style="position: absolute; left: 0; font-family: 'JetBrains Mono', monospace; opacity: 0.5;">→</span>
+            If you're hosting a party, your housemates have <em>veto rights</em>, not just notice rights.
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- ============ TRANSITION TO TAX ROUND ============ -->
-<section style="background: var(--ink); color: var(--paper); padding: 64px 32px; border-bottom: 2px solid var(--ink);">
+<section style="background: var(--ink); color: var(--paper); padding: 56px 32px; border-bottom: 2px solid var(--ink);">
   <div class="section-inner" style="text-align: center; max-width: 900px;">
     <span class="section-tag" style="border-color: var(--paper); color: var(--paper);">Round 02 · Live</span>
     <h2 class="section-title" style="margin: 0 auto 24px;">
-      Now we try it<br>on something <em style="color: var(--ochre);">that matters</em>.
+      Then try it<br>on something <em style="color: var(--ochre);">that matters</em>.
     </h2>
     <p class="lede" style="margin: 0 auto 0; opacity: 0.85;">
-      The Taiwan story is the proof of concept. The next section is the experiment: a real Polis round on Australian tax reform, embedded on this page, votes counted from anywhere. Scroll down to take part.
+      The Taiwan story is the proof of concept. The shared-house round is the warm-up. The next section is the experiment: a real Polis round on Australian tax reform, embedded on this page, votes counted from anywhere.
     </p>
     <p style="margin-top: 32px; font-size: 13px; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.12em; opacity: 0.6;">
       ↓ The conversation is below
@@ -1755,6 +1835,10 @@ footer {
 
     <span class="section-tag">The tax round</span>
     <h2 class="section-title">A real question,<br>asked the <em>Taiwan way</em>.</h2>
+
+    <p style="font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 24px; opacity: 0.7;">
+      ↳ First time using Polis? <a href="demo.html" style="color: var(--ochre); border-bottom: 1.5px solid var(--ochre); text-decoration: none; padding-bottom: 1px; font-weight: 700;">Try the shared-house demo round first ↗</a>
+    </p>
 
     <p class="lede">
       In partnership with the Australian network of the <strong>School of Moral Ambition</strong>, we're running a vTaiwan-style round on one of the most chronically deadlocked questions in Australian politics: how this country taxes wealth, capital, and intergenerational transfers. This is exactly the kind of fight the bridging method was built for — many camps, decades of stalemate, and a quiet majority that probably agrees on more than the loudest voices suggest.
