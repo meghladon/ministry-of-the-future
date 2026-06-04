@@ -138,6 +138,16 @@ canvas {
 .speed-name { font-size: 0.62rem; color: var(--muted); }
 .speed-val  { font-size: 0.82rem; font-weight: 500; }
 
+/* Odometer */
+.odometer-card { border-color: rgba(91,164,255,0.25); }
+.odometer-row  { display: flex; align-items: baseline; gap: 0.4rem; margin: 0.2rem 0 0.3rem; }
+.odometer-num  {
+  font-size: 2.4rem; font-weight: 500; letter-spacing: -0.04em;
+  color: var(--blue); font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.odometer-unit { font-size: 1rem; color: var(--muted); }
+
 /* Cosmic card */
 .cosmic-list { display: flex; flex-direction: column; gap: 0.55rem; }
 .cosmic-row  { display: flex; justify-content: space-between; align-items: baseline; }
@@ -221,6 +231,15 @@ canvas {
 </div>
 
 <div class="grid">
+
+  <div class="card wide odometer-card">
+    <div class="label">Distance traveled since you opened this page</div>
+    <div class="odometer-row">
+      <span class="odometer-num" id="odometer">0</span>
+      <span class="odometer-unit">km</span>
+    </div>
+    <div class="sub" id="odometer-sub">calculating…</div>
+  </div>
 
   <div class="card">
     <div class="label">Distance from Sun</div>
@@ -603,6 +622,9 @@ function getSeason(sunLon) {
   return { N, S };
 }
 
+// ─── Odometer ─────────────────────────────────────────────────────────────────
+const PAGE_OPEN = Date.now();
+
 // ─── UI update ────────────────────────────────────────────────────────────────
 function update() {
   const now = new Date();
@@ -613,6 +635,13 @@ function update() {
 
   // Orbit
   const pos = earthOrbit(now);
+
+  // Odometer
+  const elapsed = (now - PAGE_OPEN) / 1000;
+  const kmTraveled = Math.floor(elapsed * pos.speedKms);
+  document.getElementById('odometer').textContent = kmTraveled.toLocaleString();
+  document.getElementById('odometer-sub').textContent =
+    `at ${pos.speedKms.toFixed(2)} km/s · ${(elapsed / 3600).toFixed(2)} hrs on board`;
 
   document.getElementById('dist-au').textContent    = pos.distAU.toFixed(6) + ' AU';
   document.getElementById('dist-km').textContent    = fmtKm(pos.distKm);
