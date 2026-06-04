@@ -143,6 +143,51 @@ canvas {
 .cosmic-row  { display: flex; justify-content: space-between; align-items: baseline; }
 .cosmic-name { font-size: 0.62rem; color: var(--muted); }
 .cosmic-val  { font-size: 0.82rem; font-weight: 500; text-align: right; max-width: 55%; }
+
+/* ISS live stream */
+.stream-section {
+  max-width: 520px;
+  margin: 1rem auto 0;
+  padding: 0 0.75rem;
+}
+.stream-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+.stream-badge {
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: var(--rust);
+  animation: livepulse 2s ease-in-out infinite;
+}
+@keyframes livepulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.35; }
+}
+.stream-frame {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%;   /* 16:9 */
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--deep);
+  border: 1px solid var(--rim);
+}
+.stream-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+.stream-note {
+  font-size: 0.6rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-top: 0.5rem;
+}
 </style>
 </head>
 <body>
@@ -151,6 +196,25 @@ canvas {
   <h1><em>Earth's</em> Position</h1>
   <div class="utc" id="utc-display">—</div>
 </header>
+
+<div class="stream-section">
+  <div class="stream-header">
+    <div class="label">ISS Live Feed — NASA</div>
+    <div class="stream-badge">● LIVE</div>
+  </div>
+  <div class="stream-frame">
+    <iframe
+      src="https://www.youtube.com/embed/live_stream?channel=UCLA_DiR1FfKNvjuUpBHmylQ&autoplay=1&mute=1&playsinline=1&rel=0&modestbranding=1"
+      allow="autoplay; encrypted-media; picture-in-picture"
+      allowfullscreen
+      loading="lazy"
+    ></iframe>
+  </div>
+  <div class="stream-note">
+    The ISS orbits every ~90 min at 420 km altitude — stream shows
+    orbital daylight ~45 min on, ~45 min of night. Occasional signal blackouts are normal.
+  </div>
+</div>
 
 <div class="canvas-wrap">
   <canvas id="orbit"></canvas>
