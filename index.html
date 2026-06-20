@@ -1101,6 +1101,27 @@ footer {
   border-top: 1px solid rgba(243, 237, 224, 0.2);
 }
 
+/* ============ HORIZONTAL-SCROLL WRAPPERS for wide schematics on mobile ============ */
+.schematic-scroll {
+  width: 100%;
+  overflow-x: visible;
+}
+.scroll-hint {
+  display: none;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  opacity: 0.5;
+  text-align: center;
+  margin-bottom: 12px;
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.7; }
+}
+
 /* ============ RESPONSIVE ============ */
 @media (max-width: 900px) {
   .hero-grid, .taiwan-intro, .case-study, .venues-grid, .gathering-inner { grid-template-columns: 1fr; gap: 40px; }
@@ -1114,6 +1135,99 @@ footer {
   .signup-inner > div[style*="grid-template-columns"] { grid-template-columns: 1fr !important; gap: 16px !important; }
   #why .gathering-inner > div:first-child { grid-template-columns: 1fr !important; gap: 16px !important; }
   #why .gathering-inner > div:last-child { margin: 0 !important; }
+}
+
+/* ============ MOBILE: overflow & legibility fixes ============ */
+@media (max-width: 760px) {
+  /* Universal overflow prevention */
+  html, body { overflow-x: hidden; max-width: 100vw; }
+  * { max-width: 100%; }
+
+  /* Collapse all inline grid-template-columns that have ratios (1fr 1.2fr, auto 1fr, etc.) */
+  section [style*="grid-template-columns: 1fr 1.2fr"],
+  section [style*="grid-template-columns: 1.4fr 1fr"],
+  section [style*="grid-template-columns: 1.1fr 1fr"],
+  section [style*="grid-template-columns: 1.2fr 1fr"],
+  section [style*="grid-template-columns: 1fr 1.4fr"],
+  section [style*="grid-template-columns: auto 1fr"],
+  section [style*="grid-template-columns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+
+  /* Tax-round question banner: stack label + question vertically */
+  .tax-section [style*="grid-template-columns: auto 1fr"] {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+    align-items: start !important;
+  }
+
+  /* Hero CTA buttons — full width, stacked */
+  .hero a[href="#tax-round"], .hero a[href="demo.html"] {
+    width: 100%;
+    justify-content: space-between !important;
+    padding: 18px 24px !important;
+  }
+  .hero a[href="#tax-round"] span, .hero a[href="demo.html"] span {
+    font-size: 16px !important;
+  }
+
+  /* Tax-round signpost strip: stack links, allow wrap */
+  .tax-section div[style*="border-top: 1px solid var(--line)"][style*="space-between"] {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+  }
+  .tax-section div[style*="border-top: 1px solid var(--line)"] a {
+    display: inline-block;
+    margin-right: 12px;
+  }
+
+  /* Pol.is frame header — let pieces wrap properly */
+  .polis-frame-header, .polis-frame-footer { font-size: 9px !important; gap: 8px !important; }
+
+  /* "How it works" callout inside the embed */
+  .polis-frame > div[style*="display: flex"][style*="gap: 16px"] {
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+
+  /* Demo invite: sample-statements card should sit below, not beside */
+  .tax-banner { font-size: 9px !important; gap: 8px !important; padding: 12px 20px !important; }
+
+  /* Tighten section padding overall for narrow screens */
+  section { padding: 48px 20px !important; }
+
+  /* Iframe should fit and stay tall enough to be useful */
+  .polis-iframe-wrap iframe { height: 800px; }
+
+  /* SVG diagrams — let them scale full-width without forcing tiny text */
+  svg { max-width: 100% !important; height: auto !important; }
+
+  /* CRITICAL: the fault-lines schematic must scroll horizontally on mobile
+     rather than squashing to illegibility. Wrap it in a scrolling container. */
+  .schematic-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px;
+    /* Visual fade on right edge to hint scrollability */
+    background:
+      linear-gradient(to right, var(--paper) 0%, transparent 4%, transparent 96%, var(--paper) 100%) 0 0 / 100% 100% no-repeat;
+  }
+  .schematic-scroll svg {
+    /* min-width is set inline per-SVG; keep that */
+    display: block;
+  }
+  .scroll-hint {
+    display: block;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Even narrower phones */
+  .hero h1 { font-size: clamp(36px, 11vw, 56px) !important; }
+  .section-title { font-size: clamp(28px, 8vw, 44px) !important; }
+  .demo-banner span, .tax-banner span { font-size: 8px !important; }
 }
 </style>
 </head>
@@ -1178,8 +1292,249 @@ footer {
     </div>
     <div>
       <p class="hero-pitch">
-        The Ministry of the Future is a project testing whether <a href="https://pol.is" target="_blank" rel="noopener" class="inline-link">Polis</a>, the deliberation tool used by <a href="https://vtaiwan.tw/" target="_blank" rel="noopener" class="inline-link">vTaiwan</a> to resolve real political deadlocks in Taipei, could help Australians think together about what this country should become. We're running a real round on tax reform. You're invited to take part.
+        We've got everything we need for a prosperous future, except a way to think constructively together about how to realise it. <a href="https://pol.is" target="_blank" rel="noopener" class="inline-link">Polis</a>, the tool <a href="https://vtaiwan.tw/" target="_blank" rel="noopener" class="inline-link">vTaiwan</a> has been using to break political deadlocks in Taipei for a decade, might be one. <strong>We're putting it to the test here.</strong>
       </p>
+    </div>
+  </div>
+
+  <!-- ===== HERO CTA STRIP ===== -->
+  <div style="margin-top: 48px; padding-top: 32px; border-top: 1px solid rgba(243, 237, 224, 0.25); display: flex; gap: 20px; flex-wrap: wrap; align-items: center;">
+    <a href="#tax-round" style="
+      display: inline-flex; align-items: center; gap: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      background: var(--rust);
+      color: var(--paper);
+      padding: 20px 32px;
+      text-decoration: none;
+      border: 2px solid var(--rust);
+      font-weight: 700;
+      transition: all 0.15s;
+    " onmouseover="this.style.background='var(--paper)';this.style.color='var(--ink)';" onmouseout="this.style.background='var(--rust)';this.style.color='var(--paper)';">
+      <span style="font-family: 'Fraunces', serif; font-style: italic; font-weight: 400; text-transform: none; letter-spacing: -0.01em; font-size: 18px;">Vote in the tax round</span>
+      <span>↓</span>
+    </a>
+    <a href="demo.html" style="
+      display: inline-flex; align-items: center; gap: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      background: var(--ochre);
+      color: var(--ink);
+      padding: 20px 32px;
+      text-decoration: none;
+      border: 2px solid var(--ochre);
+      font-weight: 700;
+      transition: all 0.15s;
+    " onmouseover="this.style.background='var(--paper)';this.style.borderColor='var(--paper)';" onmouseout="this.style.background='var(--ochre)';this.style.borderColor='var(--ochre)';">
+      <span style="font-family: 'Fraunces', serif; font-style: italic; font-weight: 400; text-transform: none; letter-spacing: -0.01em; font-size: 18px;">Or try the lighter demo</span>
+      <span>→</span>
+    </a>
+    <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; opacity: 0.6; letter-spacing: 0.1em; text-transform: uppercase; margin-left: 8px;">
+      ~3 min &middot; No signup &middot; Anonymous
+    </span>
+  </div>
+</section>
+
+<!-- ============ TAX ROUND (FIELD NOTES / 03) ============ -->
+<section class="tax-section" id="tax-round">
+  <div class="tax-banner">
+    <span><span class="pulse"></span>Live · Round 01</span>
+    <span>Round 01 · Wealth &amp; intergenerational fairness</span>
+    <span>Hosted on pol.is, embedded here</span>
+  </div>
+
+  <div class="tax-inner">
+
+    <span class="section-tag">The tax round</span>
+
+    <p style="font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; margin: 20px 0 32px; opacity: 0.7;">
+      ↳ Want something lighter first? <a href="demo.html" style="color: var(--ochre); border-bottom: 1.5px solid var(--ochre); text-decoration: none; padding-bottom: 1px; font-weight: 700;">Try the shared-house demo round ↓</a>
+    </p>
+
+    <!-- The question banner -->
+    <div style="border: 2px solid var(--line); margin-bottom: 32px; background: var(--paper); padding: 32px;">
+      <div style="display: grid; grid-template-columns: auto 1fr; gap: 32px; align-items: baseline;">
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--rust); white-space: nowrap;">Q · Round 01</span>
+        <div style="font-size: clamp(22px, 2.6vw, 30px); line-height: 1.25; font-style: italic; font-weight: 300;">
+          How should Australia tax <strong style="font-style: normal; font-weight: 700;">wealth, capital, and intergenerational transfers</strong> over the next decade?
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ LIVE REPORT (the cluster map, updates as votes come in) ============ -->
+    <div class="polis-frame" style="margin-bottom: 32px;">
+      <div class="polis-frame-header">
+        <span><span class="live-dot"></span>The opinion landscape · live</span>
+        <span>Updates as new votes come in</span>
+      </div>
+
+      <!-- Framing note: what people are looking at -->
+      <div style="padding: 16px 24px; border-bottom: 1px solid var(--line); background: var(--paper); font-size: 13px; line-height: 1.5; display: flex; gap: 16px; align-items: flex-start;">
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: var(--rust); white-space: nowrap; padding-top: 1px;">↳ WHAT YOU'RE SEEING</span>
+        <span>This is the live cluster map for this round. Each dot is a participant. The opinion groups are auto-detected by the algorithm. The <strong>bridging statements</strong> below the map are the ones every group agreed on, the things hiding under the disagreement.</span>
+      </div>
+
+      <div class="polis-iframe-wrap" style="min-height: 900px;">
+        <!--
+          ╭─ POL.IS REPORT EMBED ──────────────────────────────────╮
+          │ Live report: pol.is/report/r9d9suh26aknexvymacdx       │
+          │ Read-only view of cluster map + bridging statements    │
+          ╰────────────────────────────────────────────────────────╯
+        -->
+        <div class="polis"
+             data-report_id="r9d9suh26aknexvymacdx"
+             data-ui_lang="en"
+             data-bg_white="true">
+        </div>
+        <script async src="https://pol.is/embed.js"></script>
+      </div>
+
+      <div class="polis-frame-footer">
+        <span>Live cluster map · pol.is report</span>
+        <span><a href="https://pol.is/report/r9d9suh26aknexvymacdx" target="_blank" rel="noopener" style="color: var(--ink);">Open full report ↗</a></span>
+      </div>
+    </div>
+
+    <!-- ============ VOTING (add your voice) ============ -->
+    <div class="polis-frame">
+      <div class="polis-frame-header">
+        <span><span class="live-dot"></span>Add your voice · pol.is</span>
+        <span>Anonymous · No signup · ~5 min</span>
+      </div>
+
+      <!-- Expectation-setting note -->
+      <div style="padding: 16px 24px; border-bottom: 1px solid var(--line); background: var(--paper); font-size: 13px; line-height: 1.5; display: flex; gap: 16px; align-items: flex-start;">
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: var(--rust); white-space: nowrap; padding-top: 1px;">↳ HOW TO TAKE PART</span>
+        <span>Vote agree / disagree / pass on each statement. Add your own statements as you go. Your votes will join the map above. The more people vote, the sharper the bridging statements become.</span>
+      </div>
+
+      <div class="polis-iframe-wrap">
+        <!--
+          ╭─ POL.IS EMBED ─────────────────────────────────────────╮
+          │ Live conversation: pol.is/8mtdwmddzx                   │
+          │ Round 01 · Wealth & intergenerational fairness         │
+          ╰────────────────────────────────────────────────────────╯
+        -->
+        <div class="polis"
+             data-conversation_id="8mtdwmddzx"
+             data-ucsh="false"
+             data-ucst="false"
+             data-ucsv="false"
+             data-ucsf="false"
+             data-ui_lang="en"
+             data-show_vis="true"
+             data-bg_white="true">
+        </div>
+        <script async src="https://pol.is/embed.js"></script>
+
+        <!-- Fallback shown only if the iframe doesn't load (e.g., during demo prep before ID is set) -->
+        <div class="polis-fallback" id="polis-fallback">
+          <p>The conversation will load here once the pol.is conversation ID is set.<br>
+          For now, the embed code is in place and ready.</p>
+        </div>
+      </div>
+
+      <div class="polis-frame-footer">
+        <span>Methodology · vTaiwan, since 2015</span>
+        <span><a href="https://pol.is" style="color: var(--ink);">pol.is ↗</a> · <a href="https://compdemocracy.org" style="color: var(--ink);">Computational Democracy Project ↗</a></span>
+      </div>
+    </div>
+
+    <!-- Signpost to the long-form context below -->
+    <div style="margin-top: 48px; padding: 24px 0 8px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 16px;">
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; opacity: 0.7;">↳ Want the long version?</span>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em;">
+        <a href="#why" style="color: var(--ink); border-bottom: 1.5px solid var(--rust); text-decoration: none; padding-bottom: 1px;">Why this exists ↓</a>
+        &nbsp;&nbsp;
+        <a href="#taiwan" style="color: var(--ink); border-bottom: 1.5px solid var(--rust); text-decoration: none; padding-bottom: 1px;">How Taiwan does it ↓</a>
+        &nbsp;&nbsp;
+        <a href="#roadmap" style="color: var(--ink); border-bottom: 1.5px solid var(--rust); text-decoration: none; padding-bottom: 1px;">What we're building ↓</a>
+      </span>
+    </div>
+
+    </div>
+
+</section>
+
+<!-- ============ DEMO INVITE (PLAYFUL) ============ -->
+<section style="background: var(--ochre); color: var(--ink); padding: 56px 32px; border-bottom: 2px solid var(--line); position: relative; overflow: hidden;">
+  <!-- Decorative pattern: cluster-style scattered dots -->
+  <svg style="position: absolute; right: -40px; top: -40px; width: 240px; height: 240px; opacity: 0.18; pointer-events: none;" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
+    <g fill="#1a1814">
+      <circle cx="60" cy="80" r="4"/><circle cx="80" cy="65" r="4"/><circle cx="95" cy="90" r="4"/>
+      <circle cx="50" cy="105" r="4"/><circle cx="75" cy="115" r="4"/><circle cx="100" cy="60" r="4"/>
+      <circle cx="160" cy="140" r="4"/><circle cx="180" cy="160" r="4"/><circle cx="170" cy="125" r="4"/>
+      <circle cx="195" cy="145" r="4"/><circle cx="155" cy="170" r="4"/><circle cx="190" cy="120" r="4"/>
+      <circle cx="120" cy="180" r="4"/><circle cx="140" cy="190" r="4"/><circle cx="110" cy="200" r="4"/>
+    </g>
+    <g fill="none" stroke="#1a1814" stroke-width="1" opacity="0.5">
+      <ellipse cx="80" cy="85" rx="40" ry="30" transform="rotate(-15 80 85)"/>
+      <ellipse cx="180" cy="145" rx="38" ry="28" transform="rotate(20 180 145)"/>
+      <ellipse cx="125" cy="190" rx="30" ry="20" transform="rotate(-5 125 190)"/>
+    </g>
+  </svg>
+
+  <div class="section-inner" style="max-width: 1100px; position: relative; z-index: 1;">
+    <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: center;">
+
+      <div>
+        <span class="section-tag" style="border-color: var(--ink); color: var(--ink); background: var(--ochre);">Round 02 · The lighter one</span>
+        <h2 class="section-title" style="margin: 16px 0 20px; font-size: clamp(36px, 5vw, 64px);">
+          Or try it<br>on something <em style="font-style: italic;">silly</em>.
+        </h2>
+        <p style="font-size: 17px; line-height: 1.55; max-width: 480px; margin-bottom: 24px;">
+          Tax is heavy. We made a lighter round too — a Polis conversation on the politics of <strong>shared houses</strong>: dishes, guests, the fridge, the chaos of communal living. Same algorithm, same cluster map. Lower stakes. <em>The easiest way to feel how Polis works.</em>
+        </p>
+        <a href="demo.html" style="
+          display: inline-block;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 12px;
+          text-transform: uppercase;
+          letter-spacing: 0.12em;
+          background: var(--ink);
+          color: var(--paper);
+          padding: 18px 32px;
+          text-decoration: none;
+          border: 2px solid var(--ink);
+          font-weight: 700;
+          transition: all 0.15s;
+        " onmouseover="this.style.background='var(--rust)';this.style.borderColor='var(--rust)';" onmouseout="this.style.background='var(--ink)';this.style.borderColor='var(--ink)';">
+          Open the demo round →
+        </a>
+        <p style="margin-top: 16px; font-size: 12px; font-style: italic; opacity: 0.7;">
+          ~3 minutes · No signup · 14 starter statements about housemates
+        </p>
+      </div>
+
+      <!-- Sample statements teaser -->
+      <div style="border: 2px solid var(--ink); background: rgba(243, 237, 224, 0.4); padding: 28px;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 16px; opacity: 0.7;">
+          A taste · sample statements
+        </div>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li style="font-size: 15px; line-height: 1.45; padding: 10px 0 10px 22px; position: relative; border-bottom: 1px dotted var(--ink);">
+            <span style="position: absolute; left: 0; font-family: 'JetBrains Mono', monospace; opacity: 0.5;">→</span>
+            Dishes should be done within 24 hours of being used.
+          </li>
+          <li style="font-size: 15px; line-height: 1.45; padding: 10px 0 10px 22px; position: relative; border-bottom: 1px dotted var(--ink);">
+            <span style="position: absolute; left: 0; font-family: 'JetBrains Mono', monospace; opacity: 0.5;">→</span>
+            A house should eat dinner together at least once a week.
+          </li>
+          <li style="font-size: 15px; line-height: 1.45; padding: 10px 0 10px 22px; position: relative; border-bottom: 1px dotted var(--ink);">
+            <span style="position: absolute; left: 0; font-family: 'JetBrains Mono', monospace; opacity: 0.5;">→</span>
+            Cleaning should be done when it needs doing — adults can sense mess.
+          </li>
+          <li style="font-size: 15px; line-height: 1.45; padding: 10px 0 10px 22px; position: relative;">
+            <span style="position: absolute; left: 0; font-family: 'JetBrains Mono', monospace; opacity: 0.5;">→</span>
+            If you're hosting a party, your housemates have <em>veto rights</em>, not just notice rights.
+          </li>
+        </ul>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1270,32 +1625,26 @@ footer {
       <div style="display: flex; flex-direction: column; gap: 18px;">
         <div style="border-top: 1px solid rgba(243, 237, 224, 0.3); padding-top: 14px;">
           <div style="font-family: 'Fraunces', serif; font-size: 44px; font-weight: 300; line-height: 1; color: var(--ochre);">91 / 88</div>
-          <p style="font-size: 14px; opacity: 0.8; margin-top: 6px; line-height: 1.5;">For the first time in more than twenty years, autocracies outnumber democracies in the world. The gap opened in 2024.</p>
+          <p style="font-size: 14px; opacity: 0.8; margin-top: 6px; line-height: 1.5;">For the first time in twenty years, autocracies outnumber democracies. The gap opened in 2024.</p>
         </div>
         <div style="border-top: 1px solid rgba(243, 237, 224, 0.3); padding-top: 14px;">
           <div style="font-family: 'Fraunces', serif; font-size: 44px; font-weight: 300; line-height: 1; color: var(--ochre);">~25%</div>
-          <p style="font-size: 14px; opacity: 0.8; margin-top: 6px; line-height: 1.5;">of all countries on earth are now in active autocratisation, including, for the first time in modern history, the United States, the United Kingdom, and Italy.</p>
+          <p style="font-size: 14px; opacity: 0.8; margin-top: 6px; line-height: 1.5;">of countries are now in active autocratisation — including, for the first time, the US, the UK, and Italy.</p>
         </div>
         <div style="border-top: 1px solid rgba(243, 237, 224, 0.3); padding-top: 14px;">
           <div style="font-family: 'Fraunces', serif; font-size: 44px; font-weight: 300; line-height: 1; color: var(--ochre);">74%</div>
-          <p style="font-size: 14px; opacity: 0.8; margin-top: 6px; line-height: 1.5;">of Australians say democracy is preferable to any other form of government, a record high. Our exception is real. It is also brittle.</p>
+          <p style="font-size: 14px; opacity: 0.8; margin-top: 6px; line-height: 1.5;">of Australians prefer democracy to any other form of government, a record high. Our exception is real. It is also brittle.</p>
         </div>
       </div>
     </div>
 
-    <!-- ===== Body copy ===== -->
-    <div style="max-width: 760px; margin: 0 0 0 auto; display: flex; flex-direction: column; gap: 20px; font-size: 17px; line-height: 1.65;">
+    <!-- ===== Body copy (tightened) ===== -->
+    <div style="max-width: 760px; margin: 0 0 0 auto; font-size: 17px; line-height: 1.65;">
       <p>
-        The V&#8209;Dem Institute's latest Democracy Report calls the last two decades "the third wave of autocratization". In 2024, for the first time in more than twenty years, autocracies outnumbered democracies. Freedom of expression is deteriorating in nearly a quarter of countries, a new record. Polarisation is deepening in roughly a quarter of all countries on earth.<sup style="color: var(--ochre);"><a href="https://www.v-dem.net/publications/democracy-reports/" style="color: var(--ochre); text-decoration: none;">1</a></sup>
+        Australia is, for now, an unusual exception to a global slide.<sup style="color: var(--ochre);"><a href="https://www.v-dem.net/publications/democracy-reports/" style="color: var(--ochre); text-decoration: none;">1</a></sup> We're holding the line — on democratic infrastructure that was built before the internet, while every comparable country slides past us. The digital tools that hollowed out public discourse can be turned the other way. <a href="https://pol.is" target="_blank" rel="noopener" class="inline-link">Polis</a> is one of them, used by <a href="https://vtaiwan.tw/" target="_blank" rel="noopener" class="inline-link">vTaiwan</a> and a dozen governments since to find consensus the noise was hiding.<sup style="color: var(--ochre);"><a href="https://poll.lowyinstitute.org/report/2025/" style="color: var(--ochre); text-decoration: none;">2</a></sup>
       </p>
-      <p>
-        Australia is, for now, an unusual exception. A record 74% of Australians say democracy is preferable to any other form of government, the highest figure the Lowy Institute has ever recorded. But 70% also believe social media is making democracy worse, and trust in our political parties has been in long decline.<sup style="color: var(--ochre);"><a href="https://poll.lowyinstitute.org/report/2025/" style="color: var(--ochre); text-decoration: none;">2</a></sup> We are holding the line. But we're holding it on infrastructure that was built before the internet, and we're holding it while every other comparable country slides past us in the wrong direction.
-      </p>
-      <p>
-        The same digital tools that have hollowed out public discourse over the past two decades can be turned the other way. <a href="https://pol.is" target="_blank" rel="noopener" class="inline-link">Polis</a>, the deliberation method developed by a Seattle team and famously deployed by Audrey Tang's team in Taiwan, has been used to resolve legislative deadlocks across more than a dozen countries, from Uber regulation in Taipei to climate policy in Austria, fintech rules in Britain, and a constitutional consultation for an AI system. The pattern in every case is the same. People who appeared to be at war with each other turned out to share more than the loudest voices suggested. The tool found the agreement that the noise was hiding.
-      </p>
-      <p style="border-top: 1px solid rgba(243, 237, 224, 0.25); padding-top: 16px; margin-top: 8px; font-size: 12px; font-family: 'JetBrains Mono', monospace; opacity: 0.6; line-height: 1.6;">
-        <span style="color: var(--ochre);">1.</span> V&#8209;Dem Institute, <em>Democracy Report 2026: Unraveling the Democratic Era?</em>, University of Gothenburg, 2026. &nbsp;&nbsp; <span style="color: var(--ochre);">2.</span> Lowy Institute Poll 2025, Sydney, June 2025.
+      <p style="border-top: 1px solid rgba(243, 237, 224, 0.25); padding-top: 16px; margin-top: 24px; font-size: 12px; font-family: 'JetBrains Mono', monospace; opacity: 0.6; line-height: 1.6;">
+        <span style="color: var(--ochre);">1.</span> V&#8209;Dem Institute, <em>Democracy Report 2026</em>. &nbsp;&nbsp; <span style="color: var(--ochre);">2.</span> Lowy Institute Poll 2025.
       </p>
     </div>
   </div>
@@ -1314,13 +1663,7 @@ footer {
     <div class="taiwan-intro">
       <div class="taiwan-intro-text">
         <p>
-          The core insight is almost embarrassingly simple. On most contested issues, people aren't actually as divided as the loudest voices suggest. They're divided on <em>some</em> things and quietly agreed on others. The agreed parts are invisible because nobody's shouting about them.
-        </p>
-        <p>
-          The Taiwanese tool, called <strong>Polis</strong>, uses a clustering algorithm to map opinion groups in real time, then surfaces the statements that cross between them. These are called <em>bridging statements</em>. They're the ideas that earn agreement from people who otherwise disagree about everything. They're rare. They're how consensus actually works.
-        </p>
-        <p>
-          What gets hidden, on purpose, is the divisive stuff. The platform doesn't reward outrage. It rewards finding the thing your opponent can also live with.
+          On most contested issues, people aren't as divided as the loudest voices suggest. They're divided on <em>some</em> things and quietly agreed on others. <strong>Pol.is</strong> uses clustering to find those quiet agreements — the <em>bridging statements</em> — and surfaces them. The divisive stuff gets demoted. Outrage isn't rewarded.
         </p>
       </div>
 
@@ -1386,152 +1729,157 @@ footer {
       </div>
     </div>
 
-    <!-- ===== Process flow ===== -->
-    <div class="process-flow">
-      <h3>Fig. 02 · The vTaiwan process, end to end</h3>
-      <svg class="process-svg" viewBox="0 0 1200 280" xmlns="http://www.w3.org/2000/svg">
-        <!-- Horizontal axis line -->
-        <line x1="60" y1="140" x2="1140" y2="140" stroke="#1a1814" stroke-width="1.5"/>
-
-        <!-- Stage 1: Proposal -->
-        <g>
-          <circle cx="120" cy="140" r="32" fill="#f3ede0" stroke="#1a1814" stroke-width="2"/>
-          <text x="120" y="145" text-anchor="middle" font-family="Fraunces" font-size="22" font-weight="300">01</text>
-          <text x="120" y="200" text-anchor="middle" font-family="JetBrains Mono" font-size="11" font-weight="700">PROPOSAL</text>
-          <text x="120" y="215" text-anchor="middle" font-family="Fraunces" font-size="10" font-style="italic">stakeholder mapping,</text>
-          <text x="120" y="228" text-anchor="middle" font-family="Fraunces" font-size="10" font-style="italic">fact&#8209;gathering,</text>
-          <text x="120" y="241" text-anchor="middle" font-family="Fraunces" font-size="10" font-style="italic">background documents,</text>
-          <text x="120" y="254" text-anchor="middle" font-family="Fraunces" font-size="10" font-style="italic">g0v mini&#8209;hackathons</text>
-          <text x="120" y="90" text-anchor="middle" font-family="JetBrains Mono" font-size="9" opacity="0.5">offline</text>
-        </g>
-
-        <!-- Stage 2: Opinion (Polis) - the highlighted one -->
-        <g>
-          <circle cx="380" cy="140" r="42" fill="#b8451f" stroke="#1a1814" stroke-width="2"/>
-          <text x="380" y="148" text-anchor="middle" font-family="Fraunces" font-size="28" font-weight="300" fill="#f3ede0">02</text>
-          <text x="380" y="210" text-anchor="middle" font-family="JetBrains Mono" font-size="11" font-weight="700">OPINION</text>
-          <text x="380" y="225" text-anchor="middle" font-family="Fraunces" font-size="11" font-style="italic">Polis: vote, propose,</text>
-          <text x="380" y="238" text-anchor="middle" font-family="Fraunces" font-size="11" font-style="italic">cluster, surface bridges</text>
-          <text x="380" y="80" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#b8451f" font-weight="700">&#8593; THIS IS WHERE POL.IS SITS</text>
-          <text x="380" y="92" text-anchor="middle" font-family="JetBrains Mono" font-size="9" opacity="0.5">online</text>
-        </g>
-
-        <!-- Stage 3: Reflection -->
-        <g>
-          <circle cx="640" cy="140" r="32" fill="#f3ede0" stroke="#1a1814" stroke-width="2"/>
-          <text x="640" y="145" text-anchor="middle" font-family="Fraunces" font-size="22" font-weight="300">03</text>
-          <text x="640" y="200" text-anchor="middle" font-family="JetBrains Mono" font-size="11" font-weight="700">REFLECTION</text>
-          <text x="640" y="215" text-anchor="middle" font-family="Fraunces" font-size="11" font-style="italic">live-streamed face-to-face</text>
-          <text x="640" y="228" text-anchor="middle" font-family="Fraunces" font-size="11" font-style="italic">stakeholder meeting</text>
-          <text x="640" y="90" text-anchor="middle" font-family="JetBrains Mono" font-size="9" opacity="0.5">offline</text>
-        </g>
-
-        <!-- Stage 4: Legislation -->
-        <g>
-          <circle cx="900" cy="140" r="32" fill="#f3ede0" stroke="#1a1814" stroke-width="2"/>
-          <text x="900" y="145" text-anchor="middle" font-family="Fraunces" font-size="22" font-weight="300">04</text>
-          <text x="900" y="200" text-anchor="middle" font-family="JetBrains Mono" font-size="11" font-weight="700">LEGISLATION</text>
-          <text x="900" y="215" text-anchor="middle" font-family="Fraunces" font-size="11" font-style="italic">consensus → policy or</text>
-          <text x="900" y="228" text-anchor="middle" font-family="Fraunces" font-size="11" font-style="italic">explanation if rejected</text>
-          <text x="900" y="90" text-anchor="middle" font-family="JetBrains Mono" font-size="9" opacity="0.5">offline</text>
-        </g>
-
-        <!-- Outcome -->
-        <g>
-          <circle cx="1100" cy="140" r="20" fill="#1a1814"/>
-          <text x="1100" y="146" text-anchor="middle" font-family="Fraunces" font-size="14" fill="#f3ede0" font-weight="300">→</text>
-          <text x="1100" y="200" text-anchor="middle" font-family="JetBrains Mono" font-size="10" font-weight="700">~80% acted on</text>
-          <text x="1100" y="213" text-anchor="middle" font-family="Fraunces" font-size="10" font-style="italic">since 2015</text>
-        </g>
-
-        <!-- Connecting arrows -->
-        <g stroke="#1a1814" stroke-width="1" fill="none" opacity="0.4">
-          <line x1="155" y1="140" x2="335" y2="140" marker-end="url(#arr)"/>
-          <line x1="425" y1="140" x2="605" y2="140" marker-end="url(#arr)"/>
-          <line x1="675" y1="140" x2="865" y2="140" marker-end="url(#arr)"/>
-          <line x1="935" y1="140" x2="1075" y2="140" marker-end="url(#arr)"/>
-        </g>
-        <defs>
-          <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M0,0 L10,5 L0,10 z" fill="#1a1814"/>
-          </marker>
-        </defs>
-      </svg>
-      <p class="diagram-caption" style="text-align:center;margin-top:8px;">
-        Polis is one stage of four. The platform handles the opinion-mapping. Humans, facilitators, stakeholders, civil servants, handle everything else. The Ministry of the Future is our version of the human work around the tool.
-      </p>
-    </div>
 
     <!-- ============ METHOD: FOUR STAGES UNPACKED ============ -->
     <div class="method-block" id="method">
       <div class="method-header">
-        <h3>Fig. 03 · The four stages, unpacked</h3>
+        <h3>Fig. 02 · The four stages, unpacked</h3>
         <p class="method-sub">vTaiwan separates the work into four discrete stages, each with its own tools, participants, and outputs. Pol.is is one stage of four. The rest is human work — and most of it isn't online.</p>
       </div>
 
-      <div class="method-stages">
+      <!-- Single integrated diagram replacing the 4 text cards -->
+      <div style="padding: 40px 32px 16px; background: var(--paper);">
+        <div class="scroll-hint">← scroll the diagram →</div>
+        <div class="schematic-scroll">
+          <svg viewBox="0 0 1200 520" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto; display: block; min-width: 900px;">
+          <defs>
+            <marker id="m-arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M0,0 L10,5 L0,10 z" fill="#1a1814"/>
+            </marker>
+          </defs>
 
-        <!-- Stage 01: Proposal -->
-        <div class="method-stage">
-          <div class="stage-num">01</div>
-          <div class="stage-name">Proposal</div>
-          <div class="stage-mode">offline · weekly</div>
-          <p class="stage-desc">A government agency agrees to be <strong>accountable</strong> for an issue. A facilitator takes charge. The community maps stakeholders and gathers facts.</p>
-          <ul class="stage-list">
-            <li>g0v Wednesday mini-hackathons</li>
-            <li>Stakeholder discovery</li>
-            <li>Background documents and an open dictionary of terms</li>
-            <li>Rolling questionnaires sent through stakeholder networks</li>
-          </ul>
+          <!-- Horizontal axis through middle -->
+          <line x1="80" y1="280" x2="1140" y2="280" stroke="#1a1814" stroke-width="1.2"/>
+
+          <!-- Mode bands at top -->
+          <g font-family="JetBrains Mono" font-size="10" fill="#1a1814" opacity="0.5" text-anchor="middle">
+            <text x="220" y="40">OFFLINE &middot; WEEKLY</text>
+            <text x="540" y="40">ONLINE &middot; ~1 MONTH</text>
+            <text x="820" y="40">OFFLINE &middot; LIVE-STREAMED</text>
+            <text x="1080" y="40">OFFLINE &middot; FINAL</text>
+          </g>
+
+          <!-- Connector arrows between stages -->
+          <g stroke="#1a1814" stroke-width="1" opacity="0.3" fill="none">
+            <line x1="305" y1="280" x2="455" y2="280" marker-end="url(#m-arr)"/>
+            <line x1="625" y1="280" x2="745" y2="280" marker-end="url(#m-arr)"/>
+            <line x1="900" y1="280" x2="1005" y2="280" marker-end="url(#m-arr)"/>
+          </g>
+
+          <!-- ===== Stage 01: Proposal ===== -->
+          <g>
+            <!-- Tool tags above the circle (one row, plenty of space) -->
+            <g font-family="JetBrains Mono" font-size="10" fill="#1a1814" opacity="0.65">
+              <rect x="135" y="155" width="78" height="22" fill="none" stroke="#1a1814" stroke-width="0.6"/>
+              <text x="174" y="170" text-anchor="middle">hackathons</text>
+              <rect x="223" y="155" width="78" height="22" fill="none" stroke="#1a1814" stroke-width="0.6"/>
+              <text x="262" y="170" text-anchor="middle">stakeholders</text>
+            </g>
+
+            <!-- Connector from tags to circle -->
+            <line x1="220" y1="180" x2="220" y2="234" stroke="#1a1814" stroke-width="0.4" opacity="0.3" stroke-dasharray="2,2"/>
+
+            <!-- Stage circle -->
+            <circle cx="220" cy="280" r="46" fill="#f3ede0" stroke="#1a1814" stroke-width="2"/>
+            <text x="220" y="289" text-anchor="middle" font-family="Fraunces" font-size="34" font-weight="300">01</text>
+            <text x="220" y="350" text-anchor="middle" font-family="JetBrains Mono" font-size="13" font-weight="700">PROPOSAL</text>
+
+            <g font-family="Fraunces" font-size="13" font-style="italic" fill="#1a1814" text-anchor="middle">
+              <text x="220" y="382">an agency takes</text>
+              <text x="220" y="400">accountability</text>
+            </g>
+          </g>
+
+          <!-- ===== Stage 02: Opinion (highlighted, Polis) ===== -->
+          <g>
+            <!-- Pointer label, well above the tags -->
+            <text x="540" y="110" text-anchor="middle" font-family="JetBrains Mono" font-size="11" font-weight="700" fill="#b8451f">↓ THIS IS WHERE POL.IS SITS</text>
+
+            <!-- Tool tags above the circle (single row, side by side) -->
+            <g font-family="JetBrains Mono" font-size="10">
+              <!-- pol.is (highlighted) -->
+              <rect x="455" y="155" width="80" height="22" fill="#b8451f" stroke="#1a1814" stroke-width="0.6"/>
+              <text x="495" y="170" text-anchor="middle" font-weight="700" fill="#f3ede0">pol.is</text>
+              <!-- discourse -->
+              <rect x="545" y="155" width="80" height="22" fill="#f3ede0" stroke="#1a1814" stroke-width="0.6"/>
+              <text x="585" y="170" text-anchor="middle" fill="#1a1814" opacity="0.75">discourse</text>
+            </g>
+
+            <!-- Connector from tags to circle -->
+            <line x1="540" y1="180" x2="540" y2="222" stroke="#1a1814" stroke-width="0.4" opacity="0.3" stroke-dasharray="2,2"/>
+
+            <!-- Stage circle (larger, rust) -->
+            <circle cx="540" cy="280" r="58" fill="#b8451f" stroke="#1a1814" stroke-width="2"/>
+            <text x="540" y="292" text-anchor="middle" font-family="Fraunces" font-size="42" font-weight="300" fill="#f3ede0">02</text>
+            <text x="540" y="362" text-anchor="middle" font-family="JetBrains Mono" font-size="13" font-weight="700">OPINION</text>
+
+            <g font-family="Fraunces" font-size="13" font-style="italic" fill="#1a1814" text-anchor="middle">
+              <text x="540" y="394">vote, propose, cluster</text>
+              <text x="540" y="412">surface the bridges</text>
+            </g>
+          </g>
+
+          <!-- ===== Stage 03: Reflection ===== -->
+          <g>
+            <!-- Tool tags above -->
+            <g font-family="JetBrains Mono" font-size="10" fill="#1a1814" opacity="0.65">
+              <rect x="745" y="155" width="68" height="22" fill="none" stroke="#1a1814" stroke-width="0.6"/>
+              <text x="779" y="170" text-anchor="middle">YouTube</text>
+              <rect x="823" y="155" width="74" height="22" fill="none" stroke="#1a1814" stroke-width="0.6"/>
+              <text x="860" y="170" text-anchor="middle">transcript</text>
+            </g>
+
+            <!-- Connector from tags to circle -->
+            <line x1="820" y1="180" x2="820" y2="234" stroke="#1a1814" stroke-width="0.4" opacity="0.3" stroke-dasharray="2,2"/>
+
+            <!-- Stage circle -->
+            <circle cx="820" cy="280" r="46" fill="#f3ede0" stroke="#1a1814" stroke-width="2"/>
+            <text x="820" y="289" text-anchor="middle" font-family="Fraunces" font-size="34" font-weight="300">03</text>
+            <text x="820" y="350" text-anchor="middle" font-family="JetBrains Mono" font-size="13" font-weight="700">REFLECTION</text>
+
+            <g font-family="Fraunces" font-size="13" font-style="italic" fill="#1a1814" text-anchor="middle">
+              <text x="820" y="382">stakeholders meet</text>
+              <text x="820" y="400">livestream + chat</text>
+            </g>
+          </g>
+
+          <!-- ===== Stage 04: Ratification ===== -->
+          <g>
+            <!-- Tool tags above -->
+            <g font-family="JetBrains Mono" font-size="10" fill="#1a1814" opacity="0.65">
+              <rect x="1005" y="155" width="68" height="22" fill="none" stroke="#1a1814" stroke-width="0.6"/>
+              <text x="1039" y="170" text-anchor="middle">guideline</text>
+              <rect x="1083" y="155" width="68" height="22" fill="none" stroke="#1a1814" stroke-width="0.6"/>
+              <text x="1117" y="170" text-anchor="middle">draft bill</text>
+            </g>
+
+            <!-- Connector from tags to circle -->
+            <line x1="1080" y1="180" x2="1080" y2="234" stroke="#1a1814" stroke-width="0.4" opacity="0.3" stroke-dasharray="2,2"/>
+
+            <!-- Stage circle -->
+            <circle cx="1080" cy="280" r="46" fill="#f3ede0" stroke="#1a1814" stroke-width="2"/>
+            <text x="1080" y="289" text-anchor="middle" font-family="Fraunces" font-size="34" font-weight="300">04</text>
+            <text x="1080" y="350" text-anchor="middle" font-family="JetBrains Mono" font-size="13" font-weight="700">RATIFICATION</text>
+
+            <g font-family="Fraunces" font-size="13" font-style="italic" fill="#1a1814" text-anchor="middle">
+              <text x="1080" y="382">a "rough consensus"</text>
+              <text x="1080" y="400">becomes policy</text>
+            </g>
+          </g>
+
+          <!-- Bottom outcome bar -->
+          <line x1="80" y1="465" x2="1140" y2="465" stroke="#1a1814" stroke-width="0.6" opacity="0.4" stroke-dasharray="2,3"/>
+          <g font-family="JetBrains Mono" font-size="11" fill="#1a1814">
+            <text x="80" y="490" font-weight="700">~80% of rounds → government action</text>
+            <text x="1140" y="490" text-anchor="end" opacity="0.6">since 2015</text>
+          </g>
+        </svg>
         </div>
-
-        <!-- Stage 02: Opinion (Polis) -->
-        <div class="method-stage is-polis">
-          <div class="stage-num">02</div>
-          <div class="stage-name">Opinion</div>
-          <div class="stage-mode">online · ~1 month</div>
-          <p class="stage-desc">Participants <strong>vote, propose, and cluster</strong>. The algorithm finds the bridging statements — the ideas both camps can live with — and demotes the divisive ones.</p>
-          <ul class="stage-list">
-            <li>Pol.is for opinion mapping and clustering</li>
-            <li>Discourse for tagged Q&amp;A; ministries reply within 7 days</li>
-            <li>Anyone can join — not just citizens, not just residents</li>
-            <li>Outputs: a raw report and a curated second-hand report</li>
-          </ul>
-        </div>
-
-        <!-- Stage 03: Reflection -->
-        <div class="method-stage">
-          <div class="stage-num">03</div>
-          <div class="stage-name">Reflection</div>
-          <div class="stage-mode">offline · live-streamed</div>
-          <p class="stage-desc">A face-to-face consultation with the stakeholders the bridging map surfaced. Live-streamed on YouTube; the chat feeds the room. Reports become the record.</p>
-          <ul class="stage-list">
-            <li>Pre-meeting between facilitator and the agency</li>
-            <li>Stakeholder presentations + facilitator's real-time digital notes</li>
-            <li>Public livestream with chat curated into the discussion</li>
-            <li>Transcript becomes the input to ratification</li>
-          </ul>
-        </div>
-
-        <!-- Stage 04: Ratification -->
-        <div class="method-stage">
-          <div class="stage-num">04</div>
-          <div class="stage-name">Ratification</div>
-          <div class="stage-mode">offline · final</div>
-          <p class="stage-desc">The agency formalises a <strong>"rough consensus"</strong>: a guideline, a policy statement, or a draft bill. If they decline, they must say why, point by point.</p>
-          <ul class="stage-list">
-            <li>Community + agency review the full record</li>
-            <li>Outcomes: regulation, guideline, or reasoned rejection</li>
-            <li>Each ministry has a Participation Officer (since 2017) responsible for the response</li>
-            <li>~80% of vTaiwan rounds have led to government action</li>
-          </ul>
-        </div>
-
       </div>
 
       <div class="method-footer">
         <span><span class="ochre">Source ·</span> The GovLab, <em>CrowdLaw for Congress: vTaiwan</em>, 2020 · with Audrey Tang &amp; PDIS Taiwan</span>
-        <span>~80% acted on since 2015</span>
+        <span>Pol.is is one stage of four. Humans do the rest.</span>
       </div>
     </div>
 
@@ -1617,13 +1965,7 @@ footer {
             <div class="case-stat"><span class="num">80%+</span><span class="label">Consensus threshold</span></div>
           </div>
           <p>
-            When Uber arrived in Taiwan in 2015 it set off the same fight it set off everywhere else: taxi drivers losing 30% of their income, regulators baffled, customers worried about safety, the company itself refusing to engage. No ministry wanted to touch it. The Ministry of Transport saw Uber drivers as criminals; the Ministry of Economic Affairs didn't think they were e-commerce; the Ministry of Finance had never heard of "the sharing economy."
-          </p>
-          <p>
-            So vTaiwan ran a Polis round instead, and split participants into four stakeholder groups: Uber drivers, taxi drivers, Uber passengers, taxi passengers. Within hours the four collapsed into two camps, pro-Uber and anti-Uber, screaming at each other in opinion-space. Then something strange happened. As people kept proposing statements, trying to win more agreement, they started writing things both sides could live with. Insurance. Registration. Fair taxation. A level playing field. Seven statements eventually crossed the 80% bridging threshold across both camps.
-          </p>
-          <p>
-            Audrey Tang took those seven statements into a face-to-face meeting with Uber, the taxi associations, and government, live-streamed to 1,875 viewers. With clear public consensus already on the table, Uber agreed to obtain professional licenses for its drivers, release its insurance policies, and pay transport taxes. The Ministry of Transportation amended the regulations along the lines vTaiwan had produced. <strong>Nobody walked in with that compromise. The bridging algorithm found it.</strong>
+            When Uber arrived in 2015, taxi drivers were losing 30% of their income, no ministry wanted to touch it, and the company refused to engage. vTaiwan ran a Polis round. Within hours, four stakeholder groups collapsed into two camps screaming at each other — until people started writing statements both sides could live with. Seven crossed the 80% threshold. Audrey Tang took them into a live-streamed meeting with Uber, the taxi associations, and three ministries. Uber agreed to professional licenses, insurance disclosure, and transport taxes. <strong>Nobody walked in with that compromise. The algorithm found it.</strong>
           </p>
         </div>
       </div>
@@ -1708,252 +2050,12 @@ footer {
             <div class="case-stat"><span class="num">4</span><span class="label">Stakeholder groups</span></div>
           </div>
           <p>
-            Taiwan banned online alcohol sales in 2003. By 2012 the Ministry of Finance wanted to lift the ban, but every attempt to write new rules collapsed under the weight of the people in the room: retailers wanted no restrictions, e-commerce platforms wanted clarity, parents wanted protection, public-health groups wanted prohibition. They had been talking past each other for years. The regulation went nowhere.
-          </p>
-          <p>
-            In March 2016, the question went to vTaiwan. About 450 citizens proposed and voted on solutions over a few weeks. What emerged from the cluster map wasn't yes-or-no. It was <em>yes, but</em>: a conditional permission with specific guardrails. Age verification at purchase. Restricted delivery hours. Identity checks at handover. None of those conditions were anyone's opening position. They were the bridging statements, the things every group could agree on once they stopped trying to win.
-          </p>
-          <p>
-            <strong>The new regulation reflected those conditions almost exactly.</strong> This is the case that's harder to tell than the Uber one, but it's the more important one. Uber proved Polis could find consensus on a polarised issue. The alcohol case proved it could produce a <em>novel</em> compromise, one that nobody walked in carrying, that emerged from the structure of agreement itself. That's the part of the Taiwanese method we're trying to bring here.
+            Taiwan banned online alcohol sales in 2003. By 2012 the Ministry of Finance wanted to lift the ban, but every attempt collapsed under the weight of who was in the room — retailers, e-commerce platforms, parents, public-health groups, all talking past each other. Thirteen years of deadlock. In 2016, the question went to vTaiwan. ~450 citizens voted over a few weeks. What emerged wasn't yes-or-no — it was <em>yes, but</em>: age verification, restricted delivery hours, ID at handover. <strong>None of those were anyone's opening position.</strong> They were the bridges. The new regulation reflected them almost exactly.
           </p>
         </div>
       </div>
 
     </div>
-
-    <p class="pullquote">
-      The Ministry of the Future is an experiment in whether the human work around this tool, the kind of work that made Taiwan's deliberations matter, could be adapted for Australia. The first step is finding out if the tool itself resonates with people here.
-    </p>
-
-  </div>
-</section>
-
-<!-- ============ DEMO INVITE (PLAYFUL) ============ -->
-<section style="background: var(--ochre); color: var(--ink); padding: 56px 32px; border-bottom: 2px solid var(--line); position: relative; overflow: hidden;">
-  <!-- Decorative pattern: cluster-style scattered dots -->
-  <svg style="position: absolute; right: -40px; top: -40px; width: 240px; height: 240px; opacity: 0.18; pointer-events: none;" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
-    <g fill="#1a1814">
-      <circle cx="60" cy="80" r="4"/><circle cx="80" cy="65" r="4"/><circle cx="95" cy="90" r="4"/>
-      <circle cx="50" cy="105" r="4"/><circle cx="75" cy="115" r="4"/><circle cx="100" cy="60" r="4"/>
-      <circle cx="160" cy="140" r="4"/><circle cx="180" cy="160" r="4"/><circle cx="170" cy="125" r="4"/>
-      <circle cx="195" cy="145" r="4"/><circle cx="155" cy="170" r="4"/><circle cx="190" cy="120" r="4"/>
-      <circle cx="120" cy="180" r="4"/><circle cx="140" cy="190" r="4"/><circle cx="110" cy="200" r="4"/>
-    </g>
-    <g fill="none" stroke="#1a1814" stroke-width="1" opacity="0.5">
-      <ellipse cx="80" cy="85" rx="40" ry="30" transform="rotate(-15 80 85)"/>
-      <ellipse cx="180" cy="145" rx="38" ry="28" transform="rotate(20 180 145)"/>
-      <ellipse cx="125" cy="190" rx="30" ry="20" transform="rotate(-5 125 190)"/>
-    </g>
-  </svg>
-
-  <div class="section-inner" style="max-width: 1100px; position: relative; z-index: 1;">
-    <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: center;">
-
-      <div>
-        <span class="section-tag" style="border-color: var(--ink); color: var(--ink); background: var(--ochre);">Round 03 · The warm-up</span>
-        <h2 class="section-title" style="margin: 16px 0 20px; font-size: clamp(36px, 5vw, 64px);">
-          First, try it<br>on something <em style="font-style: italic;">silly</em>.
-        </h2>
-        <p style="font-size: 17px; line-height: 1.55; max-width: 480px; margin-bottom: 24px;">
-          Tax reform is heavy. Before the real round below, we made a lighter one — a Polis conversation on the politics of <strong>shared houses</strong>: dishes, guests, the fridge, the chaos of communal living. Same algorithm, same cluster map, same bridging method. Lower stakes. <em>This is the easiest way to feel how Polis works.</em>
-        </p>
-        <a href="demo.html" style="
-          display: inline-block;
-          font-family: 'JetBrains Mono', monospace;
-          font-size: 12px;
-          text-transform: uppercase;
-          letter-spacing: 0.12em;
-          background: var(--ink);
-          color: var(--paper);
-          padding: 18px 32px;
-          text-decoration: none;
-          border: 2px solid var(--ink);
-          font-weight: 700;
-          transition: all 0.15s;
-        " onmouseover="this.style.background='var(--rust)';this.style.borderColor='var(--rust)';" onmouseout="this.style.background='var(--ink)';this.style.borderColor='var(--ink)';">
-          Open the demo round →
-        </a>
-        <p style="margin-top: 16px; font-size: 12px; font-style: italic; opacity: 0.7;">
-          ~3 minutes · No signup · 14 starter statements about housemates
-        </p>
-      </div>
-
-      <!-- Sample statements teaser -->
-      <div style="border: 2px solid var(--ink); background: rgba(243, 237, 224, 0.4); padding: 28px;">
-        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 16px; opacity: 0.7;">
-          A taste · sample statements
-        </div>
-        <ul style="list-style: none; padding: 0; margin: 0;">
-          <li style="font-size: 15px; line-height: 1.45; padding: 10px 0 10px 22px; position: relative; border-bottom: 1px dotted var(--ink);">
-            <span style="position: absolute; left: 0; font-family: 'JetBrains Mono', monospace; opacity: 0.5;">→</span>
-            Dishes should be done within 24 hours of being used.
-          </li>
-          <li style="font-size: 15px; line-height: 1.45; padding: 10px 0 10px 22px; position: relative; border-bottom: 1px dotted var(--ink);">
-            <span style="position: absolute; left: 0; font-family: 'JetBrains Mono', monospace; opacity: 0.5;">→</span>
-            A house should eat dinner together at least once a week.
-          </li>
-          <li style="font-size: 15px; line-height: 1.45; padding: 10px 0 10px 22px; position: relative; border-bottom: 1px dotted var(--ink);">
-            <span style="position: absolute; left: 0; font-family: 'JetBrains Mono', monospace; opacity: 0.5;">→</span>
-            Cleaning should be done when it needs doing — adults can sense mess.
-          </li>
-          <li style="font-size: 15px; line-height: 1.45; padding: 10px 0 10px 22px; position: relative;">
-            <span style="position: absolute; left: 0; font-family: 'JetBrains Mono', monospace; opacity: 0.5;">→</span>
-            If you're hosting a party, your housemates have <em>veto rights</em>, not just notice rights.
-          </li>
-        </ul>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ============ TRANSITION TO TAX ROUND ============ -->
-<section style="background: var(--ink); color: var(--paper); padding: 56px 32px; border-bottom: 2px solid var(--ink);">
-  <div class="section-inner" style="text-align: center; max-width: 900px;">
-    <span class="section-tag" style="border-color: var(--paper); color: var(--paper);">Round 02 · Live</span>
-    <h2 class="section-title" style="margin: 0 auto 24px;">
-      Then try it<br>on something <em style="color: var(--ochre);">that matters</em>.
-    </h2>
-    <p class="lede" style="margin: 0 auto 0; opacity: 0.85;">
-      The Taiwan story is the proof of concept. The shared-house round is the warm-up. The next section is the experiment: a real Polis round on Australian tax reform, embedded on this page, votes counted from anywhere.
-    </p>
-    <p style="margin-top: 32px; font-size: 13px; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.12em; opacity: 0.6;">
-      ↓ The conversation is below
-    </p>
-  </div>
-</section>
-
-<!-- ============ TAX ROUND (FIELD NOTES / 03) ============ -->
-<section class="tax-section" id="tax-round">
-  <div class="tax-banner">
-    <span><span class="pulse"></span>Live · Field Notes / 03</span>
-    <span>Round 02 · Wealth &amp; intergenerational fairness</span>
-    <span>Hosted on pol.is, embedded here</span>
-  </div>
-
-  <div class="tax-inner">
-
-    <span class="section-tag">The tax round</span>
-    <h2 class="section-title">A real question,<br>asked the <em>Taiwan way</em>.</h2>
-
-    <p style="font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 24px; opacity: 0.7;">
-      ↳ First time using Polis? <a href="demo.html" style="color: var(--ochre); border-bottom: 1.5px solid var(--ochre); text-decoration: none; padding-bottom: 1px; font-weight: 700;">Try the shared-house demo round first ↗</a>
-    </p>
-
-    <p class="lede">
-      In partnership with the Australian network of the <strong>School of Moral Ambition</strong>, we're running a vTaiwan-style round on one of the most chronically deadlocked questions in Australian politics: how this country taxes wealth, capital, and intergenerational transfers. This is exactly the kind of fight the bridging method was built for — many camps, decades of stalemate, and a quiet majority that probably agrees on more than the loudest voices suggest.
-    </p>
-
-    <!-- The question + stakeholder fault lines -->
-    <div class="tax-grid">
-
-      <div class="tax-question-card">
-        <div class="qlabel">The question · Round 02</div>
-        <div class="qbody">
-          How should Australia tax <strong>wealth, capital, and intergenerational transfers</strong> over the next decade?
-        </div>
-        <p style="font-size: 13px; line-height: 1.55; margin-top: 24px; opacity: 0.8;">
-          Scoped narrowly, on purpose. Taiwan's Uber round didn't ask "what's the future of transport." It asked one question with clear stakeholders. A cluster map only finds bridges when the disagreement is specific.
-        </p>
-      </div>
-
-      <div class="tax-stakeholders">
-        <h4>↳ Likely fault lines</h4>
-        <div class="tax-stakeholder-list">
-          <div>Asset-holders nearing retirement</div>
-          <div>Renters under 40</div>
-          <div>Small business owners</div>
-          <div>Self-funded retirees</div>
-          <div>First home buyers</div>
-          <div>Property investors</div>
-          <div>Wage-earners on PAYG</div>
-          <div>Inheritors &amp; would-be inheritors</div>
-          <div>Super fund members</div>
-          <div>Public servants &amp; treasury staff</div>
-          <div>Economists across the spectrum</div>
-          <div>Anyone who's been told "wait your turn"</div>
-        </div>
-        <p style="font-size: 12px; line-height: 1.5; margin-top: 20px; font-style: italic; opacity: 0.7;">
-          Pol.is doesn't ask you to pick a camp. It works out which one you're in from how you vote, then looks for what crosses between them.
-        </p>
-      </div>
-
-    </div>
-
-    <!-- The actual pol.is embed -->
-    <div class="polis-frame">
-      <div class="polis-frame-header">
-        <span><span class="live-dot"></span>Live conversation · pol.is</span>
-        <span>Anonymous · No signup · ~5 min</span>
-      </div>
-
-      <!-- Expectation-setting note -->
-      <div style="padding: 16px 24px; border-bottom: 1px solid var(--line); background: var(--paper); font-size: 13px; line-height: 1.5; display: flex; gap: 16px; align-items: flex-start;">
-        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: var(--rust); white-space: nowrap; padding-top: 1px;">↳ HOW IT WORKS</span>
-        <span>Vote agree / disagree / pass on each statement below. Once you've voted on a few, the <strong>cluster map appears in this same frame</strong> — you'll see where you sit on the opinion landscape, and which statements bridge across clusters. Map needs ~7 voters before it renders.</span>
-      </div>
-
-      <div class="polis-iframe-wrap">
-        <!--
-          ╭─ POL.IS EMBED ─────────────────────────────────────────╮
-          │ Live conversation: pol.is/8mtdwmddzx                   │
-          │ Round 02 · Wealth & intergenerational fairness         │
-          ╰────────────────────────────────────────────────────────╯
-        -->
-        <div class="polis"
-             data-conversation_id="8mtdwmddzx"
-             data-ucsh="false"
-             data-ucst="false"
-             data-ucsv="false"
-             data-ucsf="false"
-             data-ui_lang="en"
-             data-show_vis="true"
-             data-bg_white="true">
-        </div>
-        <script async src="https://pol.is/embed.js"></script>
-
-        <!-- Fallback shown only if the iframe doesn't load (e.g., during demo prep before ID is set) -->
-        <div class="polis-fallback" id="polis-fallback">
-          <p>The conversation will load here once the pol.is conversation ID is set.<br>
-          For now, the embed code is in place and ready.</p>
-        </div>
-      </div>
-
-      <div class="polis-frame-footer">
-        <span>Methodology · vTaiwan, since 2015</span>
-        <span><a href="https://pol.is" style="color: var(--ink);">pol.is ↗</a> · <a href="https://compdemocracy.org" style="color: var(--ink);">Computational Democracy Project ↗</a></span>
-      </div>
-    </div>
-
-    <!-- What participants are doing, and what happens next -->
-    <h3 style="font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 24px;">↳ What you're doing right now, and what happens after</h3>
-
-    <div class="tax-next">
-      <div class="tax-next-step">
-        <div class="step-n">Step 01 · You</div>
-        <h5>Vote &amp; propose</h5>
-        <p>Agree, disagree, or pass on each statement. Add your own. The algorithm sorts everyone into opinion clusters and finds what bridges them.</p>
-      </div>
-      <div class="tax-next-step">
-        <div class="step-n">Step 02 · Pol.is</div>
-        <h5>Cluster &amp; bridge</h5>
-        <p>Real-time PCA + k-means. The map updates as votes come in. Statements that earn agreement across all clusters get surfaced; divisive ones get demoted.</p>
-      </div>
-      <div class="tax-next-step">
-        <div class="step-n">Step 03 · Conference</div>
-        <h5>Reflection</h5>
-        <p>The bridging statements go into a face-to-face session at the School of Moral Ambition tax reform conference. Stakeholders, economists, public servants, in one room.</p>
-      </div>
-      <div class="tax-next-step">
-        <div class="step-n">Step 04 · Output</div>
-        <h5>Public report</h5>
-        <p>A raw report and a curated read-back, published openly. A statement of where the bridges are, what the room agreed to, and what's still contested.</p>
-      </div>
-    </div>
-
-    <p class="pullquote" style="margin-top: 80px;">
-      Tax is supposed to be the topic that breaks deliberation. It's polarised, it's technical, it's tied up with identity and class. That's exactly the kind of question Taiwan's bridging method earned its reputation on. We don't know if it will work here. That's what the round is for.
-    </p>
 
   </div>
 </section>
@@ -2005,7 +2107,7 @@ footer {
           <li class="roadmap-item done current">
             <span class="roadmap-marker">05</span>
             <div>
-              <strong>Round 02: wealth &amp; intergenerational fairness <span style="color: var(--rust); font-style: italic;">→ live</span></strong>
+              <strong>Round 01: wealth &amp; intergenerational fairness <span style="color: var(--rust); font-style: italic;">→ live</span></strong>
               <p>Running on hosted pol.is, embedded above. In partnership with the Australian network of the School of Moral Ambition. The first real-stakes round, on the most chronically deadlocked policy question in Australian politics.</p>
             </div>
           </li>
@@ -2026,8 +2128,8 @@ footer {
           <li class="roadmap-item next">
             <span class="roadmap-marker">→</span>
             <div>
-              <strong>Round 02 → reflection &amp; ratification</strong>
-              <p>Once Round 02 closes, the bridging statements go to a face-to-face session at the School of Moral Ambition tax reform conference. The output is a public report — what the room agreed to, what's still contested, and what should happen next. Stages 03 and 04 of the Taiwan method, applied here.</p>
+              <strong>Round 01 → reflection &amp; ratification</strong>
+              <p>Once Round 01 closes, the bridging statements go to a face-to-face session at the School of Moral Ambition tax reform conference. The output is a public report — what the room agreed to, what's still contested, and what should happen next. Stages 03 and 04 of the Taiwan method, applied here.</p>
             </div>
           </li>
         </ol>
@@ -2077,14 +2179,14 @@ footer {
 <section class="signup" id="follow">
   <div class="signup-inner">
     <h2>Follow<br><em>along</em>.</h2>
-    <p>The Ministry of the Future is being built slowly, in public. There's no mailing list yet, and no community to join. Just this page, which we'll update as Round 02 progresses and as the project finds its shape.</p>
+    <p>The Ministry of the Future is being built slowly, in public. There's no mailing list yet, and no community to join. Just this page, which we'll update as Round 01 progresses and as the project finds its shape.</p>
     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; text-align: left;">
       <div style="border-top: 1px solid var(--paper); padding-top: 16px;">
         <strong style="font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ochre); display: block; margin-bottom: 8px;">01 / Bookmark</strong>
-        <p style="font-size: 14px; opacity: 0.85; margin: 0;">Bookmark this page. We'll post results from Round 02 here, plus what we learn and what we try next.</p>
+        <p style="font-size: 14px; opacity: 0.85; margin: 0;">Bookmark this page. We'll post results from Round 01 here, plus what we learn and what we try next.</p>
       </div>
       <div style="border-top: 1px solid var(--paper); padding-top: 16px;">
-        <strong style="font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ochre); display: block; margin-bottom: 8px;">02 / Vote in Round 02</strong>
+        <strong style="font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ochre); display: block; margin-bottom: 8px;">02 / Vote in Round 01</strong>
         <p style="font-size: 14px; opacity: 0.85; margin: 0;">The tax-reform round is live above. Five minutes, no signup. Vote, see the cluster map, watch the bridging statements emerge.</p>
       </div>
       <div style="border-top: 1px solid var(--paper); padding-top: 16px;">
