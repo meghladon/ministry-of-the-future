@@ -67,7 +67,3 @@ Beyond that: a regional festival round (lighter), larger infrastructure delibera
 This is an early-stage project being built slowly, in public. There's no mailing list yet. The clearest signal of interest is voting in the rounds.
 
 For partnership or research enquiries: [meaghan_ferguson@outlook.com](mailto:meaghan_ferguson@outlook.com)
-
----
-
-*Built in Melbourne. Tested anywhere people are willing to vote.*
