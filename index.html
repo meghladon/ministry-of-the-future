@@ -1365,39 +1365,130 @@ footer {
       </div>
     </div>
 
-    <!-- ============ LIVE REPORT (the cluster map, updates as votes come in) ============ -->
+    <!-- ============ EXAMPLE VISUALISATION (annotated illustration of what Polis output looks like) ============ -->
     <div class="polis-frame" style="margin-bottom: 32px;">
       <div class="polis-frame-header">
-        <span><span class="live-dot"></span>The opinion landscape · live</span>
-        <span>Updates as new votes come in</span>
+        <span><span class="live-dot" style="animation: none; background: var(--ochre);"></span>An example output</span>
+        <span>What a Polis round produces</span>
       </div>
 
-      <!-- Framing note: what people are looking at -->
+      <!-- Framing note -->
       <div style="padding: 16px 24px; border-bottom: 1px solid var(--line); background: var(--paper); font-size: 13px; line-height: 1.5; display: flex; gap: 16px; align-items: flex-start;">
-        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: var(--rust); white-space: nowrap; padding-top: 1px;">↳ WHAT YOU'RE SEEING</span>
-        <span>This is the live cluster map for this round. Each dot is a participant. The opinion groups are auto-detected by the algorithm. The <strong>bridging statements</strong> below the map are the ones every group agreed on, the things hiding under the disagreement.</span>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: var(--rust); white-space: nowrap; padding-top: 1px;">↳ WHAT TO LOOK FOR</span>
+        <span>After voting, Polis sorts every participant into <strong>opinion groups</strong> based on how they voted. Your votes feed into a map like the one below. The space between groups is where the <em>bridging statements</em> live — the ideas both sides agreed on.</span>
       </div>
 
-      <div class="polis-iframe-wrap" style="min-height: 900px;">
-        <!--
-          ╭─ POL.IS REPORT — RAW IFRAME EMBED ─────────────────────╮
-          │ Live report URL: pol.is/report/r9d9suh26aknexvymacdx   │
-          │ Reports do NOT use embed.js — they embed via iframe.   │
-          ╰────────────────────────────────────────────────────────╯
-        -->
-        <iframe
-          src="https://pol.is/report/r9d9suh26aknexvymacdx"
-          width="100%"
-          height="900"
-          frameborder="0"
-          style="border: none; display: block; background: var(--paper);"
-          title="Live opinion landscape — pol.is report">
-        </iframe>
+      <div style="padding: 48px 32px; background: var(--paper);">
+        <div class="scroll-hint">← scroll the example →</div>
+        <div class="schematic-scroll">
+          <svg viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto; display: block; min-width: 700px;">
+            <defs>
+              <marker id="ex-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M0,0 L10,5 L0,10 z" fill="#1a1814" opacity="0.55"/>
+              </marker>
+            </defs>
+
+            <!-- Cross-hair axis (faint) -->
+            <line x1="180" y1="260" x2="700" y2="260" stroke="#1a1814" stroke-width="0.8" opacity="0.25"/>
+            <line x1="440" y1="80"  x2="440" y2="440" stroke="#1a1814" stroke-width="0.8" opacity="0.25"/>
+
+            <!-- Cluster A (right/top, larger) — irregular blob like the pol.is screenshot -->
+            <path d="M 520,120 L 600,90 L 690,140 L 720,220 L 700,320 L 620,400 L 540,420 L 460,360 L 450,260 L 470,180 Z"
+                  fill="#1a1814" fill-opacity="0.08" stroke="#1a1814" stroke-width="1" stroke-opacity="0.4"/>
+
+            <!-- Cluster B (lower-left, smaller) -->
+            <path d="M 230,310 L 290,290 L 380,330 L 410,380 L 350,420 L 260,410 L 210,370 Z"
+                  fill="#1a1814" fill-opacity="0.08" stroke="#1a1814" stroke-width="1" stroke-opacity="0.4"/>
+
+            <!-- Participant dots scattered in Cluster A -->
+            <g fill="#1a1814" opacity="0.5">
+              <circle cx="540" cy="170" r="3"/>
+              <circle cx="580" cy="155" r="3"/>
+              <circle cx="615" cy="190" r="3"/>
+              <circle cx="650" cy="220" r="3"/>
+              <circle cx="555" cy="220" r="3"/>
+              <circle cx="600" cy="245" r="3"/>
+              <circle cx="640" cy="280" r="3"/>
+              <circle cx="555" cy="310" r="3"/>
+              <circle cx="615" cy="335" r="3"/>
+              <circle cx="525" cy="265" r="3"/>
+              <circle cx="585" cy="295" r="3"/>
+              <circle cx="660" cy="155" r="3"/>
+              <circle cx="500" cy="350" r="3"/>
+              <circle cx="675" cy="350" r="3"/>
+            </g>
+
+            <!-- Participant dots in Cluster B -->
+            <g fill="#1a1814" opacity="0.5">
+              <circle cx="270" cy="340" r="3"/>
+              <circle cx="320" cy="370" r="3"/>
+              <circle cx="350" cy="345" r="3"/>
+              <circle cx="290" cy="390" r="3"/>
+            </g>
+
+            <!-- "YOU" marker — rust circle, prominent (positioned in Cluster A near edge) -->
+            <circle cx="490" cy="280" r="11" fill="none" stroke="#b8451f" stroke-width="3"/>
+            <circle cx="490" cy="280" r="6" fill="#b8451f"/>
+
+            <!-- Cluster badges (rounded mono labels) -->
+            <g>
+              <!-- Group A badge -->
+              <rect x="630" y="245" width="58" height="22" rx="2" fill="#1a1814"/>
+              <text x="659" y="260" text-anchor="middle" font-family="JetBrains Mono" font-size="11" font-weight="700" fill="#f3ede0">A · 15</text>
+              <!-- Group B badge -->
+              <rect x="335" y="365" width="50" height="22" rx="2" fill="#1a1814"/>
+              <text x="360" y="380" text-anchor="middle" font-family="JetBrains Mono" font-size="11" font-weight="700" fill="#f3ede0">B · 4</text>
+            </g>
+
+            <!-- The "bridge" zone label (between clusters) -->
+            <g opacity="0.5">
+              <text x="425" y="320" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#1a1814" font-style="italic">bridging</text>
+              <text x="425" y="332" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#1a1814" font-style="italic">zone</text>
+            </g>
+
+            <!-- ============ ANNOTATIONS (callouts pointing in) ============ -->
+
+            <!-- Annotation 1: YOU (top-left) -->
+            <g>
+              <text x="60" y="180" font-family="JetBrains Mono" font-size="9" font-weight="700" fill="#b8451f">↳ YOU</text>
+              <text x="60" y="200" font-family="Fraunces" font-size="13" font-style="italic" fill="#1a1814">where your votes</text>
+              <text x="60" y="216" font-family="Fraunces" font-size="13" font-style="italic" fill="#1a1814">place you</text>
+              <line x1="155" y1="220" x2="476" y2="277" stroke="#b8451f" stroke-width="0.8" opacity="0.6" marker-end="url(#ex-arr)"/>
+            </g>
+
+            <!-- Annotation 2: OPINION GROUPS (top-right) — explicitly names A and B -->
+            <g>
+              <text x="760" y="100" font-family="JetBrains Mono" font-size="9" font-weight="700" fill="#1a1814">↳ GROUPS A &amp; B</text>
+              <text x="760" y="120" font-family="Fraunces" font-size="13" font-style="italic" fill="#1a1814">the two opinion</text>
+              <text x="760" y="136" font-family="Fraunces" font-size="13" font-style="italic" fill="#1a1814">groups the algorithm</text>
+              <text x="760" y="152" font-family="Fraunces" font-size="13" font-style="italic" fill="#1a1814">found — 15 in A, 4 in B</text>
+              <line x1="755" y1="135" x2="695" y2="256" stroke="#1a1814" stroke-width="0.8" opacity="0.45" marker-end="url(#ex-arr)"/>
+            </g>
+
+            <!-- Annotation 3: BRIDGE (bottom) -->
+            <g>
+              <text x="60" y="440" font-family="JetBrains Mono" font-size="9" font-weight="700" fill="#1a1814">↳ THE BRIDGE</text>
+              <text x="60" y="460" font-family="Fraunces" font-size="13" font-style="italic" fill="#1a1814">statements both groups</text>
+              <text x="60" y="476" font-family="Fraunces" font-size="13" font-style="italic" fill="#1a1814">agree on — the things</text>
+              <text x="60" y="492" font-family="Fraunces" font-size="13" font-style="italic" fill="#1a1814">hiding under the noise</text>
+              <line x1="240" y1="465" x2="410" y2="335" stroke="#1a1814" stroke-width="0.8" opacity="0.45" marker-end="url(#ex-arr)"/>
+            </g>
+
+            <!-- Annotation 4: EACH DOT (bottom-right) -->
+            <g>
+              <text x="760" y="410" font-family="JetBrains Mono" font-size="9" font-weight="700" fill="#1a1814">↳ EACH DOT</text>
+              <text x="760" y="430" font-family="Fraunces" font-size="13" font-style="italic" fill="#1a1814">a participant —</text>
+              <text x="760" y="446" font-family="Fraunces" font-size="13" font-style="italic" fill="#1a1814">positioned by how</text>
+              <text x="760" y="462" font-family="Fraunces" font-size="13" font-style="italic" fill="#1a1814">they voted</text>
+              <line x1="755" y1="425" x2="685" y2="365" stroke="#1a1814" stroke-width="0.8" opacity="0.45" marker-end="url(#ex-arr)"/>
+            </g>
+          </svg>
+        </div>
       </div>
 
       <div class="polis-frame-footer">
-        <span>Live cluster map · pol.is report</span>
-        <span><a href="https://pol.is/report/r9d9suh26aknexvymacdx" target="_blank" rel="noopener" style="color: var(--ink);">Open full report ↗</a></span>
+        <span>Illustrative · not live data</span>
+        <span><a href="https://pol.is/report/r9d9suh26aknexvymacdx" target="_blank" rel="noopener" style="color: var(--ink); border-bottom: 1.5px solid var(--rust); padding-bottom: 1px; font-weight: 700;">See the live report from Round 01 ↗</a></span>
       </div>
     </div>
 
@@ -1408,10 +1499,14 @@ footer {
         <span>Anonymous · No signup · ~5 min</span>
       </div>
 
-      <!-- Expectation-setting note -->
+      <!-- Two stacked callouts: vote, then write bridges -->
       <div style="padding: 16px 24px; border-bottom: 1px solid var(--line); background: var(--paper); font-size: 13px; line-height: 1.5; display: flex; gap: 16px; align-items: flex-start;">
-        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: var(--rust); white-space: nowrap; padding-top: 1px;">↳ HOW TO TAKE PART</span>
-        <span>Vote agree / disagree / pass on each statement. Add your own statements as you go. Your votes will join the map above. The more people vote, the sharper the bridging statements become.</span>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: var(--rust); white-space: nowrap; padding-top: 1px; min-width: 96px;">↳ VOTE</span>
+        <span>Agree, disagree, or pass on each statement. Your votes place you on the map above.</span>
+      </div>
+      <div style="padding: 16px 24px; border-bottom: 1px solid var(--line); background: var(--paper-deep); font-size: 13px; line-height: 1.5; display: flex; gap: 16px; align-items: flex-start;">
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: var(--rust); white-space: nowrap; padding-top: 1px; min-width: 96px;">↳ WRITE A BRIDGE</span>
+        <span>Once you've voted, write a statement of your own — something you think people in <em>both</em> groups could agree on. This is how bridging statements emerge. The seeds we wrote are just a starting prompt; the interesting work happens when participants find the language both sides can live with.</span>
       </div>
 
       <div class="polis-iframe-wrap">
